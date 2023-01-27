@@ -1,5 +1,24 @@
 const defaultWindPosition = 140;
 
+export const windDirections = {
+  N: `rotate-[-130deg]`,
+  NNE: `rotate-[-107.5deg]`,
+  NE: `rotate-[-85deg]`,
+  ENE: `rotate-[-62.5deg]`,
+  E: `rotate-[-40deg]`,
+  ESE: `rotate-[-17.5deg]`,
+  SE: `rotate-[5deg]`,
+  SSE: `rotate-[27.5deg]`,
+  S: `rotate-[50deg]`,
+  SSW: `rotate-[72.5deg]`,
+  SW: `rotate-[95deg]`,
+  WSW: `rotate-[117.5deg]`,
+  W: `rotate-[140deg]`,
+  WNW: `rotate-[165.5deg]`,
+  NW: `rotate-[185deg]`,
+  NNW: "rotate-[207.5deg]",
+};
+
 export const computeWindDirection = (stringDirection) => {
   let rotateDegree;
   switch (stringDirection) {

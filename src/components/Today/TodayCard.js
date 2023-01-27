@@ -50,7 +50,8 @@ const TodayCard = () => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline rotate-[${todayData.windDirection}deg]`}
+                className={`inline`}
+                style={{ transform: `rotate(${todayData.windDirection}deg)` }}
               />
               {`${todayData.windSpeed} `}
             </span>

@@ -1,13 +1,12 @@
 import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
-import { computeIcon, computeWindDirection } from "@/helpers/hourlyHelpers";
+import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
 
 const HourlyItem = (props) => {
   const time = props.hourInfo.time;
   const sunriseH = Number(props.sunTimes.sunrise.split(":")[0]);
   const sunsetH = Number(props.sunTimes.sunset.split(":")[0]);
   const nowH = Number(time);
-  const rotateDegree = computeWindDirection(props.hourInfo.windDirection);
   const weatherIcon = computeIcon(
     props.hourInfo.condition,
     sunriseH,
@@ -33,7 +32,9 @@ const HourlyItem = (props) => {
         <NavigationArrow
           size={18}
           weight="regular"
-          className={`inline rotate-[${rotateDegree}deg] text-cyan-200`}
+          className={`inline ${
+            windDirections[props.hourInfo.windDirection]
+          } text-cyan-200`}
         />
       );
       bottomContent = props.hourInfo.wind;

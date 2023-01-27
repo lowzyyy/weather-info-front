@@ -6,8 +6,6 @@ import ForecastCard from "@/components/Forecast/ForecastCard";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  // TODO: FORECAST CARD (API IS DONE, I GUESS !?)
-
   return (
     <>
       <Head>
