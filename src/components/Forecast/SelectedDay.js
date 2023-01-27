@@ -3,11 +3,12 @@ import is from "../../styles/weather-icons.min.module.css";
 
 import { computeIcon, computeWindDirection } from "@/helpers/hourlyHelpers";
 import { NavigationArrow } from "phosphor-react";
+import { windDirections } from "@/helpers/hourlyHelpers";
 
 const SelectedDay = (props) => {
   const dayInfo = props.dayInfo;
-  const dayWindDirection = computeWindDirection(dayInfo.dayWindDirection);
-  const nightWindDirection = computeWindDirection(dayInfo.nightWindDirection);
+  // const dayWindDirection = computeWindDirection(dayInfo.dayWindDirection);
+  // const nightWindDirection = computeWindDirection(dayInfo.nightWindDirection);
   const dayIcon = computeIcon(dayInfo.dayPrecipType, true);
   const nightIcon = computeIcon(dayInfo.nightPrecipType, false);
   return (
@@ -45,7 +46,7 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline rotate-[${dayWindDirection}deg]`}
+                className={`inline ${windDirections[dayInfo.dayWindDirection]}`}
               />
               {`${dayInfo.dayWindSpeed} `}
             </span>
@@ -81,7 +82,9 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline rotate-[${nightWindDirection}deg]`}
+                className={`inline ${
+                  windDirections[dayInfo.nightWindDirection]
+                }`}
               />
               {`${dayInfo.nightWindSpeed} `}
             </span>
