@@ -1,8 +1,13 @@
 import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
 import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
+import { useEffect, useState } from "react";
+import useHideGlobal from "../hooks/useHideGlobal";
 
 const HourlyItem = (props) => {
+  const [visible, setVisible] = useState(false);
+  const ref = useHideGlobal(setVisible);
+
   const time = props.hourInfo.time;
   const sunriseH = Number(props.sunTimes.sunrise.split(":")[0]);
   const sunsetH = Number(props.sunTimes.sunset.split(":")[0]);
@@ -66,12 +71,22 @@ const HourlyItem = (props) => {
   }
   return (
     <div
-      className={`flex w-14  shrink-0 flex-col items-center justify-between  border-solid border-black ${
+      className={`relative flex  w-14 shrink-0 flex-col items-center  justify-between border-solid border-black ${
         time === "00" ? " border-r border-r-white" : ""
       }`}
     >
-      <span>{time + "h"}</span>
-      <span>{middleContent}</span>
+      <span>
+        {time + "h"}
+        <p
+          ref={ref}
+          className={`absolute left-0  animate-fadeIn ${
+            visible ? "inline" : "hidden"
+          }  rounded-md border border-solid border-white bg-gray-700 p-1  text-center text-sm text-white`}
+        >
+          {`${props.hourInfo.condition}`}
+        </p>
+      </span>
+      <span ref={ref}>{middleContent}</span>
       <span>{bottomContent}</span>
     </div>
   );
