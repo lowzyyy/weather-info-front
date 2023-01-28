@@ -1,7 +1,7 @@
 import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
 import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useHideGlobal from "../hooks/useHideGlobal";
 
 const HourlyItem = (props) => {

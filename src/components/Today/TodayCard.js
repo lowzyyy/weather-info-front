@@ -1,4 +1,4 @@
-const { useState, useEffect } = require("react");
+import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
 import useSWR from "swr";
 import HourlySection from "./HourlySection";
@@ -67,16 +67,15 @@ const TodayCard = () => {
           </div>
           <div className="text-lg">
             Moon Phase
-            <span className="flex items-center">
-              <svg viewBox="0 0 24 24" width={24} height={24}>
-                <title>Moon Phase</title>
-                <path
-                  fill="white"
-                  d={`${todayData.moonSvgInfo.d1}`}
-                  stroke="black"
-                  strokeWidth="1.5"
-                ></path>
-                <path fill="black" d={`${todayData.moonSvgInfo.d2}`}></path>
+            <span className="flex items-center ">
+              <i
+                title={`${todayData.moonPhase}`}
+                className={`${is.wi} ${
+                  is[`wi-moon-alt-${todayData.moonPhase}`]
+                }  z-10 text-2xl text-black`}
+              ></i>
+              <svg width="18" height="18" className="absolute z-[0]">
+                <circle cx="9" cy="9" r="8" strokeWidth="1" fill="white" />
               </svg>
             </span>
           </div>
