@@ -25,7 +25,7 @@ const SelectedDay = (props) => {
         {/* LEFT SECTION */}
         <div className="[&>*]:mb-2 [&>*]:flex  [&>*]:justify-between">
           <div className="text-3xl font-semibold">Day</div>
-          <div className=" text-xl font-semibold text-amber-200">
+          <div className=" text-base font-semibold text-amber-200">
             <span>{dayInfo.dayCondition}</span>
           </div>
           <div className="text-lg">
@@ -61,7 +61,7 @@ const SelectedDay = (props) => {
         {/* RIGHT SECTION */}
         <div className="[&>*]:mb-2 [&>*]:flex  [&>*]:justify-between">
           <div className="text-3xl font-semibold">Night</div>
-          <div className=" text-xl font-semibold text-amber-200 ">
+          <div className=" text-base font-semibold text-amber-200 ">
             <span>{dayInfo.nightCondition}</span>
           </div>
           <div className="text-lg">
