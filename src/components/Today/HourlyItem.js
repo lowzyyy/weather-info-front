@@ -69,6 +69,16 @@ const HourlyItem = (props) => {
     default:
       break;
   }
+  const conditionTooltip =
+    cat === "temp" ? (
+      <p
+        className={`absolute left-0  animate-fadeIn ${
+          visible ? "inline" : "hidden"
+        }  rounded-md border border-solid border-white bg-gray-700 p-1  text-center text-sm text-white`}
+      >
+        {`${props.hourInfo.condition}`}
+      </p>
+    ) : null;
   return (
     <div
       className={`relative flex  w-14 shrink-0 flex-col items-center  justify-between border-solid border-black ${
@@ -77,14 +87,7 @@ const HourlyItem = (props) => {
     >
       <span>
         {time + "h"}
-        <p
-          ref={ref}
-          className={`absolute left-0  animate-fadeIn ${
-            visible ? "inline" : "hidden"
-          }  rounded-md border border-solid border-white bg-gray-700 p-1  text-center text-sm text-white`}
-        >
-          {`${props.hourInfo.condition}`}
-        </p>
+        {conditionTooltip}
       </span>
       <span ref={ref}>{middleContent}</span>
       <span>{bottomContent}</span>
