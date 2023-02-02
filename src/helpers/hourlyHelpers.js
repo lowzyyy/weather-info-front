@@ -110,7 +110,10 @@ export const computeIcon = (cond, ...args) => {
     return "wi-rain-mix";
   // rain
   if (condition.includes("light rain")) return "wi-sprinkle";
-  if (condition.includes("rain showers")) return "wi-showers";
+  if (condition.includes("rain") && condition.includes("wind"))
+    return "wi-rain-wind";
+  if (condition.includes("rain showers") || condition.includes("showers"))
+    return "wi-showers";
   if (condition.includes("scattered showers")) return "wi-showers";
   if (condition.includes("rain")) return "wi-rain";
   // snow
