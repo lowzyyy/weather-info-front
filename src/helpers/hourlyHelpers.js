@@ -91,6 +91,8 @@ export const computeIcon = (cond, ...args) => {
     iconPart = nowH >= sunriseH && nowH < sunsetH ? "wi-day" : "wi-night-alt";
   }
 
+  // sunny
+  if (condition.includes("mostly sunny")) return "wi-day-sunny-overcast";
   // cloudy
   if (condition.includes("partly cloudy")) return `${iconPart}-cloudy`;
   if (condition.includes("mostly cloudy")) return "wi-cloudy";
