@@ -41,7 +41,7 @@ const Radar = () => {
   return (
     <div className="w-full">
       <div className="relative">
-        <ul className="absolute left-16 top-1 flex w-36 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8   ">
+        <ul className="absolute left-16 top-1 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8   ">
           {links.map((l, i) => (
             <li
               className={`hover:cursor-pointer ${
