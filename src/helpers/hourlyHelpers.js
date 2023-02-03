@@ -92,6 +92,7 @@ export const computeIcon = (cond, ...args) => {
   }
 
   // sunny
+  if (condition.includes("sunny")) return "wi-day-sunny";
   if (condition.includes("mostly sunny")) return "wi-day-sunny-overcast";
   // cloudy
   if (condition.includes("partly cloudy")) return `${iconPart}-cloudy`;

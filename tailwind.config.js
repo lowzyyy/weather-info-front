@@ -8,9 +8,14 @@ module.exports = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
       },
       animation: {
-        fadeIn: `fadeIn 0.4s  `,
+        fadeIn: `fadeIn 0.3s  `,
+        fadeOut: `fadeOut 0.3s forwards`,
       },
     },
   },
