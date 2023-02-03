@@ -14,7 +14,7 @@ const ForecastCard = () => {
   };
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(`${API_WEATHER}/tenday`, fetcher);
+  const { data, error, isLoading } = useSWR(`${API_WEATHER}/forecast`, fetcher);
   if (isLoading) return <p>LOADING FORECAST....</p>;
   if (error) return <p>ERROR FORECAST...</p>;
 
