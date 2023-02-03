@@ -31,8 +31,8 @@ const createLinkNames = () => {
 
 const Radar = () => {
   const links = createLinkNames();
-  const [imgLink, setImgLink] = useState(links[0].link);
-  const [currLink, setCurrLink] = useState(0);
+  const [imgLink, setImgLink] = useState(links[links.length - 1].link);
+  const [currLink, setCurrLink] = useState(links.length - 1);
   const linkCallback = (e) => {
     setImgLink(e.target.dataset.link);
     setCurrLink(+e.target.getAttribute("index"));
@@ -40,12 +40,12 @@ const Radar = () => {
 
   return (
     <div className="w-full">
-      <div>
-        <ul className="flex  gap-2 text-sm font-semibold text-black ">
+      <div className="relative">
+        <ul className="absolute left-16 top-1 flex w-36 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8   ">
           {links.map((l, i) => (
             <li
               className={`hover:cursor-pointer ${
-                currLink === i ? " text-blue-900" : ""
+                currLink === i ? " text-white" : ""
               }`}
               index={i}
               onClick={linkCallback}
