@@ -1,3 +1,4 @@
+import { ToggleLeft, ToggleRight } from "phosphor-react";
 import React, { use, useState } from "react";
 
 const minutes15 = 900_000;
@@ -30,17 +31,49 @@ const createLinkNames = () => {
 
 const Radar = () => {
   const links = createLinkNames();
-  const [imgLink, setImgLink] = useState(links[links.length - 1].link);
   const [currLink, setCurrLink] = useState(links.length - 1);
+  const [animateMode, setAnimateMode] = useState(false);
+
+  const checkCallback = () => {
+    if (animateMode) {
+      setAnimateMode(false);
+      setCurrLink(links.length - 1);
+    } else {
+      setAnimateMode(true);
+      setCurrLink(0);
+    }
+  };
   const linkCallback = (e) => {
-    setImgLink(e.target.dataset.link);
     setCurrLink(+e.target.getAttribute("index"));
   };
 
   return (
     <div className="w-full">
+      <div className="flex items-center gap-1 rounded-sm  ">
+        <span>Static</span>
+        {animateMode ? (
+          <ToggleRight
+            className="fill-blue-500"
+            onClick={checkCallback}
+            size={34}
+            weight="fill"
+          />
+        ) : (
+          <ToggleLeft
+            className="fill-blue-500"
+            onClick={checkCallback}
+            size={34}
+            weight="fill"
+          />
+        )}
+        <span>Animate</span>
+      </div>
       <div className="relative">
-        <ul className="absolute left-16 top-1 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8   ">
+        <ul
+          className={`absolute left-16 top-1 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8 ${
+            animateMode ? "hidden" : "flex"
+          }`}
+        >
           {links.map((l, i) => (
             <li
               className={`hover:cursor-pointer ${
@@ -55,7 +88,15 @@ const Radar = () => {
             </li>
           ))}
         </ul>
-        <img src={imgLink} />
+        {links.map((l, i) => {
+          return (
+            <img
+              key={i}
+              className={`${currLink === i ? "inline" : "hidden"}`}
+              src={`${l.link}`}
+            ></img>
+          );
+        })}
       </div>
     </div>
   );
