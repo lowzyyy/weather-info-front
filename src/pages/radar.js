@@ -1,6 +1,9 @@
 import React, { use, useState } from "react";
 
 const minutes15 = 900_000;
+const timePartToString = (value) => {
+  return value < 10 ? `0${value}` : value;
+};
 const createLinkNames = () => {
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % 15;
@@ -11,18 +14,14 @@ const createLinkNames = () => {
   const startTs = endTs - 7 * minutes15;
   const links = [...Array(8)].map((t, i) => {
     const time = new Date(startTs + i * minutes15);
-    const hour = time.getHours();
-    const minute =
-      time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
-    const month =
-      time.getMonth() + 1 < 10
-        ? `0${time.getMonth() + 1}`
-        : time.getMonth() + 1;
-    const day = time.getDate() < 10 ? `0${time.getDate()}` : time.getDate();
+    const hour = timePartToString(time.getUTCHours());
+    const minute = timePartToString(time.getMinutes());
+    const month = timePartToString(time.getMonth() + 1);
+    const day = timePartToString(time.getDate());
     const year = time.getFullYear();
-    const imageName = year + month + day + (hour - 1) + minute;
+    const imageName = year + month + day + hour + minute;
     return {
-      time: `${hour}:${minute}`,
+      time: `${timePartToString(time.getHours())}:${minute}`,
       link: `https://www.hidmet.gov.rs/data/radarska_slika/kompozit/ko${imageName}0000dBZ.cappi.png`,
     };
   });
