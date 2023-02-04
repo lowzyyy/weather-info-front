@@ -79,8 +79,16 @@ export const computeWindDirection = (stringDirection) => {
   return rotateDegree - defaultWindPosition;
 };
 
+export const formatCondition = (cond) => {
+  return cond
+    .split("/")
+    .map((el) => el.split(" ").join("-"))
+    .join(" ");
+};
+
 export const computeIcon = (cond, ...args) => {
-  const condition = cond.toLowerCase();
+  const condition = formatCondition(cond.toLowerCase());
+  const numOfConditions = condition.split(" ").length;
 
   let iconPart;
   if (args.length === 1) {
@@ -90,37 +98,58 @@ export const computeIcon = (cond, ...args) => {
     const [sunriseH, sunsetH, nowH] = args;
     iconPart = nowH >= sunriseH && nowH < sunsetH ? "wi-day" : "wi-night-alt";
   }
+  if (numOfConditions === 1) {
+    // sunny or clear
+    if (condition === "sunny") return "wi-day-sunny";
+    if (condition === "mostly-sunny") return "wi-day-sunny-overcast";
+    if (condition === "clear") return "wi-night-clear";
+    if (condition === "mostly-clear") return "wi-night-alt-partly-cloudy";
+    // cloudy
+    if (condition === "partly-cloudy") return `${iconPart}-cloudy`;
+    if (condition === "mostly-cloudy") return "wi-cloudy";
+    if (condition === "cloudy") return "wi-cloud";
+    // rain
+    if (condition === "rain") return "wi-rain";
+    if (
+      condition === "scattered-showers" ||
+      condition === "showers" ||
+      condition === "rain-showers"
+    )
+      return "wi-showers";
+    if (condition === "light-rain") return "wi-sprinkle";
+    // snow
+    if (condition === "light-snow" || condition === "snow-showers")
+      return "wi-snow";
+    if (condition === "snow") return "wi-snowflake-cold";
+    // sleet
+    if (condition === "wintry-mix") return "wi-sleet";
+  }
+  if (numOfConditions === 2) {
+    //cloud wind
+    if (condition === "cloudy wind" || condition === "mostly-cloudy wind")
+      return "wi-cloudy-gusts";
+    // rain wind
+    if (condition === "rain wind" || condition === "showers wind")
+      return "wi-rain-wind";
 
-  // sunny
-  if (condition.includes("sunny")) return "wi-day-sunny";
-  if (condition.includes("mostly sunny")) return "wi-day-sunny-overcast";
-  // cloudy
-  if (condition.includes("partly cloudy")) return `${iconPart}-cloudy`;
-  if (condition.includes("mostly cloudy")) return "wi-cloudy";
-  if (condition.includes("cloudy")) return "wi-cloud";
+    // snow wind
+    if (
+      condition === "snow-showers wind" ||
+      condition === "light-snow wind" ||
+      condition === "snow wind"
+    )
+      return "wi-snow-wind";
+    // rain snow mix
+    if (
+      condition === "ligh-rain snow" ||
+      condition === "rain snow" ||
+      condition === "light-rain light-snow" ||
+      condition === "rain light-snow"
+    )
+      return "wi-rain-mix";
+  }
 
-  // rain, mix snow/rain
-  if (condition.includes("wintry mix")) return "wi-sleet";
-  if (
-    condition.includes("light rain") &&
-    (condition.includes("snow") || condition.includes("light snow"))
-  )
-    return "wi-rain-mix";
-  if (
-    condition.includes("rain") &&
-    (condition.includes("snow") || condition.includes("light snow"))
-  )
-    return "wi-rain-mix";
-  // rain
-  if (condition.includes("light rain")) return "wi-sprinkle";
-  if (condition.includes("rain") && condition.includes("wind"))
-    return "wi-rain-wind";
-  if (condition.includes("rain showers") || condition.includes("showers"))
-    return "wi-showers";
-  if (condition.includes("scattered showers")) return "wi-showers";
-  if (condition.includes("rain")) return "wi-rain";
-  // snow
-  if (condition.includes("light snow") || condition.includes("snow showers"))
-    return "wi-snow";
-  if (condition.includes("snow")) return "wi-snowflake-cold";
+  if (numOfConditions === 3) {
+    if (condition === "rain wind snow") return "wi-rain-mix";
+  }
 };

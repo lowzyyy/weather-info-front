@@ -1,8 +1,9 @@
 import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
-import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
 import { useState } from "react";
 import useHideGlobal from "../hooks/useHideGlobal";
+import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
+import { formatCondition } from "@/helpers/hourlyHelpers";
 
 const HourlyItem = (props) => {
   const [visible, setVisible] = useState(false);
@@ -12,12 +13,8 @@ const HourlyItem = (props) => {
   const sunriseH = Number(props.sunTimes.sunrise.split(":")[0]);
   const sunsetH = Number(props.sunTimes.sunset.split(":")[0]);
   const nowH = Number(time);
-  const weatherIcon = computeIcon(
-    props.hourInfo.condition,
-    sunriseH,
-    sunsetH,
-    nowH
-  );
+  const condition = props.hourInfo.condition;
+  const weatherIcon = computeIcon(condition, sunriseH, sunsetH, nowH);
 
   let middleContent;
   let bottomContent;
@@ -26,7 +23,7 @@ const HourlyItem = (props) => {
     case "temp":
       middleContent = (
         <i
-          title={`${props.hourInfo.condition}`}
+          title={`${condition}`}
           className={`${is.wi} ${is[`${weatherIcon}`]} text-xl text-cyan-300`}
         ></i>
       );
@@ -74,9 +71,9 @@ const HourlyItem = (props) => {
       <p
         className={`absolute left-0  animate-fadeIn ${
           visible ? "inline" : "hidden"
-        }  rounded-md border border-solid border-white bg-gray-700 p-1  text-center text-sm text-white`}
+        }  w-15 break-words rounded-md border border-solid border-white bg-gray-700  p-1 text-center text-sm text-white`}
       >
-        {`${props.hourInfo.condition}`}
+        {formatCondition(condition)}
       </p>
     ) : null;
   return (
