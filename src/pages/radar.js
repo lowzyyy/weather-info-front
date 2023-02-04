@@ -1,25 +1,29 @@
+import AnimateOptions from "@/components/Radar/AnimateOptions";
+import StaticLinks from "@/components/Radar/staticLinks";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
-import React, { use, useState } from "react";
+import React, { useCallback, useState } from "react";
 
+// FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 const minutes15 = 900_000;
 const timePartToString = (value) => {
   return value < 10 ? `0${value}` : value;
 };
 const createLinkNames = () => {
+  const history = 24; //last 6h
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % 15;
   if (minuteReminder > 10)
     timeNow.setMinutes(timeNow.getMinutes() - minuteReminder);
   else timeNow.setMinutes(timeNow.getMinutes() - minuteReminder - 15);
   const endTs = timeNow.getTime();
-  const startTs = endTs - 7 * minutes15;
-  const links = [...Array(8)].map((t, i) => {
+  const startTs = endTs - (history - 1) * minutes15;
+  const links = [...Array(history)].map((t, i) => {
     const time = new Date(startTs + i * minutes15);
     const hour = timePartToString(time.getUTCHours());
     const minute = timePartToString(time.getMinutes());
-    const month = timePartToString(time.getMonth() + 1);
-    const day = timePartToString(time.getDate());
-    const year = time.getFullYear();
+    const month = timePartToString(time.getUTCMonth() + 1);
+    const day = timePartToString(time.getUTCDate());
+    const year = time.getUTCFullYear();
     const imageName = year + month + day + hour + minute;
     return {
       time: `${timePartToString(time.getHours())}:${minute}`,
@@ -30,64 +34,62 @@ const createLinkNames = () => {
 };
 
 const Radar = () => {
-  const links = createLinkNames();
+  const allLinks = createLinkNames();
+  const links = allLinks.slice(allLinks.length - 8);
   const [currLink, setCurrLink] = useState(links.length - 1);
-  const [animateMode, setAnimateMode] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [animateInt, setAnimateInt] = useState(2);
 
+  const intCallback = (e) => {
+    setAnimateInt(+e.target.dataset.int);
+  };
   const checkCallback = () => {
-    if (animateMode) {
-      setAnimateMode(false);
+    if (shouldAnimate) {
+      setShouldAnimate(false);
       setCurrLink(links.length - 1);
     } else {
-      setAnimateMode(true);
+      setShouldAnimate(true);
       setCurrLink(0);
     }
   };
-  const linkCallback = (e) => {
+  const linkCallback = useCallback((e) => {
     setCurrLink(+e.target.getAttribute("index"));
-  };
+  });
 
+  const rightToggle = (
+    <ToggleRight
+      className="fill-blue-500"
+      onClick={checkCallback}
+      size={34}
+      weight="fill"
+    />
+  );
+  const leftToggle = (
+    <ToggleLeft
+      className="fill-blue-500"
+      onClick={checkCallback}
+      size={34}
+      weight="fill"
+    />
+  );
   return (
     <div className="w-full">
       <div className="flex items-center gap-1 rounded-sm  ">
         <span>Static</span>
-        {animateMode ? (
-          <ToggleRight
-            className="fill-blue-500"
-            onClick={checkCallback}
-            size={34}
-            weight="fill"
-          />
-        ) : (
-          <ToggleLeft
-            className="fill-blue-500"
-            onClick={checkCallback}
-            size={34}
-            weight="fill"
-          />
-        )}
+        {shouldAnimate ? rightToggle : leftToggle}
         <span>Animate</span>
+        {shouldAnimate && (
+          <AnimateOptions animateInt={animateInt} intCallback={intCallback} />
+        )}
       </div>
       <div className="relative">
-        <ul
-          className={`absolute left-16 top-1 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8 ${
-            animateMode ? "hidden" : "flex"
-          }`}
-        >
-          {links.map((l, i) => (
-            <li
-              className={`hover:cursor-pointer ${
-                currLink === i ? " text-white" : ""
-              }`}
-              index={i}
-              onClick={linkCallback}
-              key={l.time}
-              data-link={l.link}
-            >
-              {l.time}
-            </li>
-          ))}
-        </ul>
+        {!shouldAnimate && (
+          <StaticLinks
+            links={links}
+            currLink={currLink}
+            linkCallback={linkCallback}
+          />
+        )}
         {links.map((l, i) => {
           return (
             <img
