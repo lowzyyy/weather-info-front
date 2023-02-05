@@ -1,66 +1,69 @@
-import AnimateOptions from "@/components/Radar/AnimateOptions";
-import StaticLinks from "@/components/Radar/StaticLinks";
+import React, { useCallback, useEffect, useState } from "react";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
-import React, { useCallback, useState } from "react";
+
+// helpers
+import { createLinkNames } from "@/helpers/radarHelpers";
+
+// components
+import AnimateOptions from "@/components/Radar/AnimateOptions";
+import SpeedOptions from "@/components/Radar/SpeedOptions";
+import StaticLinks from "@/components/Radar/StaticLinks";
+import ProgressBar from "@/components/Radar/ProgressBar";
+import ImagesList from "@/components/Radar/ImagesList";
 
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
-const minutes15 = 900_000;
-const timePartToString = (value) => {
-  return value < 10 ? `0${value}` : value;
+// For now just try to use latest image at exactly 10 minutes after...
+const animationType = {
+  0.75: "animate-[fadeOutRadar_0.8s_forwards]",
+  1: "animate-[fadeOutRadar_1.1s_forwards]",
+  1.25: "animate-[fadeOutRadar_1.4s_forwards]",
 };
-const createLinkNames = () => {
-  const history = 24; //last 6h
-  const timeNow = new Date();
-  const minuteReminder = timeNow.getMinutes() % 15;
-  if (minuteReminder > 10)
-    timeNow.setMinutes(timeNow.getMinutes() - minuteReminder);
-  else timeNow.setMinutes(timeNow.getMinutes() - minuteReminder - 15);
-  const endTs = timeNow.getTime();
-  const startTs = endTs - (history - 1) * minutes15;
-  const links = [...Array(history)].map((t, i) => {
-    const time = new Date(startTs + i * minutes15);
-    const hour = timePartToString(time.getUTCHours());
-    const minute = timePartToString(time.getMinutes());
-    const month = timePartToString(time.getUTCMonth() + 1);
-    const day = timePartToString(time.getUTCDate());
-    const year = time.getUTCFullYear();
-    const imageName = year + month + day + hour + minute;
-    return {
-      time: `${timePartToString(time.getHours())}:${minute}`,
-      link: `https://www.hidmet.gov.rs/data/radarska_slika/kompozit/ko${imageName}0000dBZ.cappi.png`,
-    };
-  });
-  return links;
-};
-
+const baseSpeed = 1000;
 const Radar = () => {
   const allLinks = createLinkNames();
-  const links = allLinks.slice(allLinks.length - 8);
-  const [currLink, setCurrLink] = useState(links.length - 1);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
   const [animateInt, setAnimateInt] = useState(2);
+  const links = allLinks.slice(allLinks.length - animateInt * 4);
+  const [selectedTime, setSelectedTime] = useState(links.length - 1);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [speedMultiplier, setSpeedMultiplier] = useState(1);
 
-  const intCallback = (e) => {
+  const animation = shouldAnimate ? animationType[speedMultiplier] : "";
+  const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
+  useEffect(() => {
+    let timer;
+    if (shouldAnimate) {
+      timer = setTimeout(() => {
+        if (selectedTime === links.length - 1) setSelectedTime(0);
+        else setSelectedTime((time) => time + 1);
+      }, baseSpeed * speedMultiplier);
+    }
+    return () => clearTimeout(timer);
+  }, [shouldAnimate, selectedTime, speedMultiplier]);
+  const intCallback = useCallback((e) => {
     setAnimateInt(+e.target.dataset.int);
-  };
+  });
   const checkCallback = () => {
     if (shouldAnimate) {
       setShouldAnimate(false);
-      setCurrLink(links.length - 1);
+      setSelectedTime(links.length - 1);
+      setAnimateInt(2);
     } else {
       setShouldAnimate(true);
-      setCurrLink(0);
+      setSelectedTime(0);
     }
   };
   const linkCallback = useCallback((e) => {
-    setCurrLink(+e.target.getAttribute("index"));
+    setSelectedTime(+e.target.getAttribute("index"));
   });
 
+  const speedCallback = (e) => {
+    setSpeedMultiplier(+e.target.dataset.speed);
+  };
   const rightToggle = (
     <ToggleRight
       className="fill-blue-500"
       onClick={checkCallback}
-      size={34}
+      size={35}
       weight="fill"
     />
   );
@@ -68,13 +71,13 @@ const Radar = () => {
     <ToggleLeft
       className="fill-blue-500"
       onClick={checkCallback}
-      size={34}
+      size={35}
       weight="fill"
     />
   );
   return (
     <div className="w-full">
-      <div className="flex items-center gap-1 rounded-sm  ">
+      <div className="flex items-center gap-1 rounded-sm text-lg  ">
         <span>Static</span>
         {shouldAnimate ? rightToggle : leftToggle}
         <span>Animate</span>
@@ -82,23 +85,26 @@ const Radar = () => {
           <AnimateOptions animateInt={animateInt} intCallback={intCallback} />
         )}
       </div>
-      <div className="relative">
+      {shouldAnimate && (
+        <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
+      )}
+      <div className="relative rounded-md">
         {!shouldAnimate && (
           <StaticLinks
             links={links}
-            currLink={currLink}
+            selectedTime={selectedTime}
             linkCallback={linkCallback}
           />
         )}
-        {links.map((l, i) => {
-          return (
-            <img
-              key={i}
-              className={`${currLink === i ? "inline" : "hidden"}`}
-              src={`${l.link}`}
-            ></img>
-          );
-        })}
+        {shouldAnimate && (
+          <span
+            className={`absolute top-0 z-10 flex flex-col text-lg font-semibold text-white`}
+          >
+            <ProgressBar filled={filled} />
+            {links[selectedTime].time}
+          </span>
+        )}
+        <ImagesList links={links} selectedTime={selectedTime} animation={animation} />
       </div>
     </div>
   );

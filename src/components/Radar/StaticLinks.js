@@ -8,7 +8,7 @@ function StaticLinks(props) {
       {props.links.map((l, i) => (
         <li
           className={`hover:cursor-pointer ${
-            props.currLink === i ? " text-white" : ""
+            props.selectedTime === i ? " text-white" : ""
           }`}
           index={i}
           onClick={props.linkCallback}

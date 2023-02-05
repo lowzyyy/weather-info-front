@@ -60,7 +60,7 @@ const Layout = (props) => {
           </div>
         </div>
       </header>
-      <main className="mx-auto mt-4 max-w-[95%]  ">{props.children}</main>
+      <main className="mx-auto mt-2 max-w-[95%]  ">{props.children}</main>
     </>
   );
 };
