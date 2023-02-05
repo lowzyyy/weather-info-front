@@ -14,7 +14,7 @@ import ImagesList from "@/components/Radar/ImagesList";
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 // For now just try to use latest image at exactly 10 minutes after...
 const animationType = {
-  0.75: "animate-[fadeOutRadar_0.8s_forwards]",
+  0.75: "animate-[fadeOutRadar_0.9s_forwards]",
   1: "animate-[fadeOutRadar_1.1s_forwards]",
   1.25: "animate-[fadeOutRadar_1.4s_forwards]",
 };
