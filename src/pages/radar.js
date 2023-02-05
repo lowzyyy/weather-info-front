@@ -1,5 +1,5 @@
 import AnimateOptions from "@/components/Radar/AnimateOptions";
-import StaticLinks from "@/components/Radar/staticLinks";
+import StaticLinks from "@/components/Radar/StaticLinks";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
 import React, { useCallback, useState } from "react";
 
