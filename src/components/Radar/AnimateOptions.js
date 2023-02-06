@@ -4,17 +4,17 @@ import useSWR from "swr";
 import { API_WEATHER } from "@/helpers/constants";
 
 function AnimateOptions(props) {
-  const { data: data4h, isLoading: isLoading4h } = useSWR(
-    `${API_WEATHER}/exist4hData`,
-    (...args) => fetch(...args).then((res) => res.json())
-  );
-  const { data: data6h, isLoading: isLoading6h } = useSWR(
-    `${API_WEATHER}/exist6hData`,
-    (...args) => fetch(...args).then((res) => res.json())
-  );
-  const option4h = isLoading4h
+  //   const { data: data4h, isLoading: isLoading4h } = useSWR(
+  //     `${API_WEATHER}/exist4hData`,
+  //     (...args) => fetch(...args).then((res) => res.json())
+  //   );
+  //   const { data: data6h, isLoading: isLoading6h } = useSWR(
+  //     `${API_WEATHER}/exist6hData`,
+  //     (...args) => fetch(...args).then((res) => res.json())
+  //   );
+  const option4h = props.isLoading6h
     ? null
-    : data4h.exists && (
+    : props.data6h.exists && (
         <span
           key={4}
           className={`rounded-md px-1 hover:cursor-pointer ${
@@ -26,9 +26,9 @@ function AnimateOptions(props) {
           4h
         </span>
       );
-  const option6h = isLoading6h
+  const option6h = props.isLoading6h
     ? null
-    : data6h.exists && (
+    : props.data6h.exists && (
         <span
           key={6}
           className={`rounded-md px-1 hover:cursor-pointer ${

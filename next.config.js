@@ -10,6 +10,12 @@ const nextConfig = {
         port: "",
         pathname: "/data/**",
       },
+      {
+        protocol: "https",
+        hostname: "sd-weather.up.railway.app",
+        port: "",
+        pathname: "/radar/**",
+      },
     ],
   },
 };

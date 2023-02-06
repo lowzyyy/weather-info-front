@@ -35,4 +35,4 @@ function SpeedOptions(props) {
   );
 }
 
-export default SpeedOptions;
+export default React.memo(SpeedOptions);

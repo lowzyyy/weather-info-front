@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
-
+import useSWR from "swr";
+import { API_WEATHER } from "@/helpers/constants";
 // helpers
 import { createLinkNames } from "@/helpers/radarHelpers";
 
@@ -20,9 +21,18 @@ const animationType = {
 };
 const baseSpeed = 1000;
 const Radar = () => {
+  // const { data: data4h, isLoading: isLoading4h } = useSWR(
+  //   `${API_WEATHER}/exist4hData`,
+  //   (...args) => fetch(...args).then((res) => res.json())
+  // );
+  const { data: data6h, isLoading: isLoading6h } = useSWR(
+    `${API_WEATHER}/exist6hData`,
+    (...args) => fetch(...args).then((res) => res.json())
+  );
+
   const allLinks = createLinkNames();
   const [animateInt, setAnimateInt] = useState(2);
-  const links = allLinks.slice(allLinks.length - animateInt * 4);
+  const [links, setLinks] = useState(allLinks.slice(allLinks.length - 8));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
@@ -30,16 +40,29 @@ const Radar = () => {
   const animation = shouldAnimate ? animationType[speedMultiplier] : "";
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
   useEffect(() => {
+    console.log("useff LINKS");
+    if (data6h) {
+      console.log(data6h);
+      const linksNumber = data6h ? 24 : 8;
+      setLinks(allLinks.slice(allLinks.length - linksNumber));
+      setSelectedTime(linksNumber - 1);
+    }
+  }, [data6h]);
+  useEffect(() => {
+    console.log("useff TIMER");
     let timer;
     if (shouldAnimate) {
       timer = setTimeout(() => {
-        if (selectedTime === links.length - 1) setSelectedTime(0);
+        if (selectedTime === links.length - 1)
+          setSelectedTime(animateInt > 2 ? (animateInt === 4 ? 8 : 0) : 16);
         else setSelectedTime((time) => time + 1);
       }, baseSpeed * speedMultiplier);
     }
     return () => clearTimeout(timer);
   }, [shouldAnimate, selectedTime, speedMultiplier]);
   const intCallback = useCallback((e) => {
+    const animateIntNow = +e.target.dataset.int;
+    setSelectedTime(animateIntNow > 2 ? (animateIntNow === 4 ? 8 : 0) : 16);
     setAnimateInt(+e.target.dataset.int);
   });
   const checkCallback = () => {
@@ -49,16 +72,16 @@ const Radar = () => {
       setAnimateInt(2);
     } else {
       setShouldAnimate(true);
-      setSelectedTime(0);
+      setSelectedTime(16);
     }
   };
   const linkCallback = useCallback((e) => {
     setSelectedTime(+e.target.getAttribute("index"));
   });
 
-  const speedCallback = (e) => {
+  const speedCallback = useCallback((e) => {
     setSpeedMultiplier(+e.target.dataset.speed);
-  };
+  });
   const rightToggle = (
     <ToggleRight
       className="fill-blue-500"
@@ -82,7 +105,12 @@ const Radar = () => {
         {shouldAnimate ? rightToggle : leftToggle}
         <span>Animate</span>
         {shouldAnimate && (
-          <AnimateOptions animateInt={animateInt} intCallback={intCallback} />
+          <AnimateOptions
+            animateInt={animateInt}
+            intCallback={intCallback}
+            isLoading6h={isLoading6h}
+            data6h={data6h}
+          />
         )}
       </div>
       {shouldAnimate && (
