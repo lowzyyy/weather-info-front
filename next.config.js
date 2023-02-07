@@ -16,6 +16,12 @@ const nextConfig = {
         port: "",
         pathname: "/radar/**",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3001",
+        pathname: "/radar/**",
+      },
     ],
   },
 };

@@ -26,6 +26,7 @@ const Radar = () => {
     (...args) => fetch(...args).then((res) => res.json())
   );
 
+  // const [allLinks, setAllLinks] = useState(createLinkNames());
   const allLinks = createLinkNames();
   const [animateInt, setAnimateInt] = useState(2);
   const [links, setLinks] = useState(allLinks.slice(allLinks.length - 8));
@@ -35,6 +36,7 @@ const Radar = () => {
 
   const animation = shouldAnimate ? animationType[speedMultiplier] : "";
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
+
   useEffect(() => {
     if (data6h) {
       const linksNumber = data6h ? 24 : 8;
@@ -119,13 +121,18 @@ const Radar = () => {
         )}
         {shouldAnimate && (
           <span
-            className={`absolute top-0 z-10 flex flex-col text-lg font-semibold text-white`}
+            className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-white`}
           >
             <ProgressBar filled={filled} />
             {links[selectedTime].time}
           </span>
         )}
-        <ImagesList links={links} selectedTime={selectedTime} animation={animation} />
+        <ImagesList
+          links={links}
+          selectedTime={selectedTime}
+          animation={animation}
+          setLinks={setLinks}
+        />
       </div>
     </div>
   );

@@ -42,10 +42,15 @@ const Layout = (props) => {
           </button>
         </div>
         <div
-          className={`absolute z-20  h-screen w-full  p-8 text-slate-900 ${
+          className={`absolute z-50  h-screen w-full  p-8 text-slate-900 ${
             menuAnimation === 0 ? "animate-fadeIn" : "animate-fadeOut"
           } bg-stone-200 ${showMobileMenu ? "block" : "hidden"}`}
         >
+          {/* <div
+          className={`absolute z-50  h-screen w-full  bg-stone-200 p-8  text-slate-900 ${
+            showMobileMenu ? "block" : "hidden"
+          }`}
+        > */}
           <div className="mx-auto flex w-40  flex-col gap-3 [&>*]:flex [&>*]:justify-start [&>*]:text-2xl">
             <span className="h-10 p-1  text-center font-semibold">
               <Link onClick={mobileMenuCallback} href={"/radar"}>
