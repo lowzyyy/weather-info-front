@@ -3,7 +3,7 @@ import { computeIcon } from "@/helpers/hourlyHelpers";
 import React from "react";
 
 const SevenDaysItem = (props) => {
-  const dayIcon = computeIcon(props.data.dayCondition, true);
+  const dayIcon = computeIcon(props.data.iconCondition, true);
 
   return (
     <div

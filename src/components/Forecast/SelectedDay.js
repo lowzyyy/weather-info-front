@@ -1,14 +1,12 @@
 import React from "react";
 import is from "../../styles/weather-icons.min.module.css";
 
-import { computeIcon, computeWindDirection } from "@/helpers/hourlyHelpers";
+import { computeIcon } from "@/helpers/hourlyHelpers";
 import { NavigationArrow } from "phosphor-react";
 import { windDirections } from "@/helpers/hourlyHelpers";
 
 const SelectedDay = (props) => {
   const dayInfo = props.dayInfo;
-  // const dayWindDirection = computeWindDirection(dayInfo.dayWindDirection);
-  // const nightWindDirection = computeWindDirection(dayInfo.nightWindDirection);
   const dayIcon = computeIcon(dayInfo.dayPrecipType, true);
   const nightIcon = computeIcon(dayInfo.nightPrecipType, false);
   return (
@@ -33,9 +31,7 @@ const SelectedDay = (props) => {
             <span className="flex items-center gap-2">
               <i
                 title={`${dayInfo.dayPrecipType}`}
-                className={`${is.wi} ${
-                  is[`${dayIcon}`]
-                }   text-2xl text-cyan-200`}
+                className={`${is.wi} ${is[`${dayIcon}`]}   text-2xl text-cyan-200`}
               ></i>
               {` ${dayInfo.dayPrecip}`}
             </span>
@@ -69,9 +65,7 @@ const SelectedDay = (props) => {
             <span className="flex items-center gap-2">
               <i
                 title={`${dayInfo.nightPrecipType}`}
-                className={`${is.wi} ${
-                  is[`${nightIcon}`]
-                }   text-2xl text-cyan-200`}
+                className={`${is.wi} ${is[`${nightIcon}`]}   text-2xl text-cyan-200`}
               ></i>
               {` ${dayInfo.nightPrecip}`}
             </span>
@@ -82,9 +76,7 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline ${
-                  windDirections[dayInfo.nightWindDirection]
-                }`}
+                className={`inline ${windDirections[dayInfo.nightWindDirection]}`}
               />
               {`${dayInfo.nightWindSpeed} `}
             </span>
