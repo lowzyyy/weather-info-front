@@ -28,6 +28,7 @@ function ImagesList(props) {
             alt="Radar image"
             width={765}
             height={565}
+            priority={i > 15 ? true : false}
           ></Image>
         );
       })}
