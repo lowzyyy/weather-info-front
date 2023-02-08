@@ -12,22 +12,24 @@ function ImagesList(props) {
   // const resizeListener = () => {
   //   setImgWidth(Math.min(window.innerWidth, 760));
   // };
+
   return (
     <>
       {props.links.map((l, i) => {
+        if (i === props.selectedTime) console.log(l.link, props.selectedTime);
         return (
           <Image
             key={i}
             className={`${
               props.selectedTime === i
                 ? `z-10 opacity-100 ${props.animation}`
-                : " opacity-0"
+                : " z-0 opacity-0"
             } absolute  rounded-sm `}
             src={`${l.link}`}
             alt="Radar image"
             width={765}
             height={565}
-            priority={i > 15 ? true : false}
+            priority
           ></Image>
         );
       })}
