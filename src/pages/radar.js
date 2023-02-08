@@ -36,6 +36,27 @@ const Radar = () => {
   const animation = shouldAnimate ? animationType[speedMultiplier] : "";
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
 
+  // useEffect(() => {
+  //   var images = document.getElementsByTagName("img");
+  //   var loaded = images.length;
+  //   const numExist = images.length;
+  //   for (var i = 0; i < images.length; i++) {
+  //     if (images[i].complete) {
+  //       loaded--;
+  //     } else {
+  //       images[i].addEventListener("load", function () {
+  //         loaded--;
+  //         if (loaded == 0) {
+  //           console.log("All loaded ", numExist);
+  //         }
+  //       });
+  //     }
+  //     if (loaded == 0) {
+  //       console.log("All loaded", numExist);
+  //     }
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (data6h) {
       const linksNumber = data6h ? 24 : 8;
