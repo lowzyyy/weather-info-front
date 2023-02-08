@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+
 // 765x565
 
 function ImagesList(props) {
@@ -17,7 +17,7 @@ function ImagesList(props) {
     <>
       {props.links.map((l, i) => {
         return (
-          <Image
+          <img
             key={i}
             className={`${
               props.selectedTime === i
@@ -26,9 +26,6 @@ function ImagesList(props) {
             } absolute  rounded-sm `}
             src={`${l.link}`}
             alt="Radar image"
-            width={765}
-            height={565}
-            priority
           />
         );
       })}
