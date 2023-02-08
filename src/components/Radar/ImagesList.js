@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { createLinkNames } from "@/helpers/radarHelpers";
 // 765x565
 
 function ImagesList(props) {

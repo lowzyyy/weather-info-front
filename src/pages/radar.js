@@ -25,9 +25,8 @@ const Radar = () => {
     `${API_WEATHER}/exist6hData`,
     (...args) => fetch(...args).then((res) => res.json())
   );
-
-  // const [allLinks, setAllLinks] = useState(createLinkNames());
-  const allLinks = createLinkNames();
+  const [allLinks, setAllLinks] = useState(() => createLinkNames());
+  // const allLinks = createLinkNames();
   const [animateInt, setAnimateInt] = useState(2);
   const [links, setLinks] = useState(allLinks.slice(allLinks.length - 8));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
@@ -63,10 +62,12 @@ const Radar = () => {
   const checkCallback = () => {
     if (shouldAnimate) {
       setShouldAnimate(false);
+      setLinks(createLinkNames());
       setSelectedTime(links.length - 1);
       setAnimateInt(2);
     } else {
       setShouldAnimate(true);
+      setLinks(createLinkNames());
       setSelectedTime(16);
     }
   };

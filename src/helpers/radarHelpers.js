@@ -7,8 +7,7 @@ export const createLinkNames = () => {
   const history = 24; //last 6h
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % 15;
-  if (minuteReminder > 9)
-    timeNow.setMinutes(timeNow.getMinutes() - minuteReminder);
+  if (minuteReminder > 9) timeNow.setMinutes(timeNow.getMinutes() - minuteReminder);
   else timeNow.setMinutes(timeNow.getMinutes() - minuteReminder - 15);
   const endTs = timeNow.getTime();
   const startTs = endTs - (history - 1) * minutes15;

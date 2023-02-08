@@ -81,6 +81,9 @@ export const computeWindDirection = (stringDirection) => {
 
 export const formatCondition = (cond) => {
   return cond
+    .replaceAll("am", "")
+    .replaceAll("pm", "")
+    .trim()
     .split("/")
     .map((el) => el.split(" ").join("-"))
     .join(" ");
