@@ -16,7 +16,6 @@ function ImagesList(props) {
   return (
     <>
       {props.links.map((l, i) => {
-        if (i === props.selectedTime) console.log(l.link, props.selectedTime);
         return (
           <Image
             key={i}
@@ -30,7 +29,7 @@ function ImagesList(props) {
             width={765}
             height={565}
             priority
-          ></Image>
+          />
         );
       })}
     </>
