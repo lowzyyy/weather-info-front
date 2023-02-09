@@ -1,36 +1,19 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-
-// 765x565
-
+import React from "react";
+// 765x565 image size
 function ImagesList(props) {
-  // const [imgWidth, setImgWidth] = useState(300);
-  // useEffect(() => {
-  //   window.addEventListener("resize", resizeListener);
-  //   resizeListener();
-  //   return () => window.removeEventListener("resize", resizeListener);
-  // }, []);
-  // const resizeListener = () => {
-  //   setImgWidth(Math.min(window.innerWidth, 760));
-  // };
-
   return (
     <>
       {props.links.map((l, i) => {
         return (
-          <Image
+          <img
             key={i}
-            className={`${
+            className={`absolute rounded-sm ${
               props.selectedTime === i
                 ? `z-10 opacity-100 ${props.animation}`
-                : " z-0 opacity-0"
-            } absolute  rounded-sm `}
+                : "z-0 opacity-0"
+            }`}
             src={`${l.link}`}
-            height={565}
-            width={765}
             alt="Radar image"
-            placeholder="blur"
-            blurDataURL="placeholder"
           />
         );
       })}

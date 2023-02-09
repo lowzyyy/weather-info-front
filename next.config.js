@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["https://s.w-x.co/"],
-    minimumCacheTTL: 1,
     remotePatterns: [
       {
         protocol: "https",

@@ -25,45 +25,15 @@ const Radar = () => {
     `${API_WEATHER}/exist6hData`,
     (...args) => fetch(...args).then((res) => res.json())
   );
-  const [allLinks, setAllLinks] = useState(() => createLinkNames());
-  // const allLinks = createLinkNames();
+
   const [animateInt, setAnimateInt] = useState(2);
-  const [links, setLinks] = useState(allLinks.slice(allLinks.length - 8));
+  const [links, setLinks] = useState(() => createLinkNames());
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
-
   const animation = shouldAnimate ? animationType[speedMultiplier] : "";
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
 
-  // useEffect(() => {
-  //   var images = document.getElementsByTagName("img");
-  //   var loaded = images.length;
-  //   const numExist = images.length;
-  //   for (var i = 0; i < images.length; i++) {
-  //     if (images[i].complete) {
-  //       loaded--;
-  //     } else {
-  //       images[i].addEventListener("load", function () {
-  //         loaded--;
-  //         if (loaded == 0) {
-  //           console.log("All loaded ", numExist);
-  //         }
-  //       });
-  //     }
-  //     if (loaded == 0) {
-  //       console.log("All loaded", numExist);
-  //     }
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    if (data6h) {
-      const linksNumber = data6h ? 24 : 8;
-      setLinks(allLinks.slice(allLinks.length - linksNumber));
-      setSelectedTime(linksNumber - 1);
-    }
-  }, [data6h]);
   useEffect(() => {
     let timer;
     if (shouldAnimate) {
@@ -75,6 +45,7 @@ const Radar = () => {
     }
     return () => clearTimeout(timer);
   }, [shouldAnimate, selectedTime, speedMultiplier]);
+  // ############# CALLBACKS
   const intCallback = useCallback((e) => {
     const animateIntNow = +e.target.dataset.int;
     setSelectedTime(animateIntNow > 2 ? (animateIntNow === 4 ? 8 : 0) : 16);
