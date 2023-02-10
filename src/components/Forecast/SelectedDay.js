@@ -15,8 +15,16 @@ const SelectedDay = (props) => {
         <span className="text-4xl font-semibold">{dayInfo.date}</span>
 
         <span className="flex gap-5 px-1 text-3xl">
-          <span>H/L</span>
-          {`${dayInfo.highTemperature}/${dayInfo.lowTemperature}`}
+          <span>
+            <span className="text-orange-300">H</span>
+            <span className="font-extralight text-orange-100">/</span>
+            <span className="text-orange-200">L</span>
+          </span>
+          <span>
+            <span className="text-orange-300">{`${dayInfo.highTemperature}`}</span>
+            <span className="font-extralight text-orange-100">/</span>
+            <span className="text-orange-200">{`${dayInfo.lowTemperature}`}</span>
+          </span>
         </span>
       </div>
       <div className="flex-shrink-1 mb-10 flex flex-wrap justify-between [&>*]:mb-2 [&>*]:basis-[45%]">
@@ -35,6 +43,9 @@ const SelectedDay = (props) => {
               ></i>
               {` ${dayInfo.dayPrecip}`}
             </span>
+          </div>
+          <div className="text-lg">
+            Humidity <span>{`${dayInfo.dayHumidity}`}</span>
           </div>
           <div className="flex items-center text-lg">
             Wind
@@ -69,6 +80,9 @@ const SelectedDay = (props) => {
               ></i>
               {` ${dayInfo.nightPrecip}`}
             </span>
+          </div>
+          <div className="text-lg">
+            Humidity <span>{`${dayInfo.nightHumidity}`}</span>
           </div>
           <div className="flex items-center text-lg">
             Wind

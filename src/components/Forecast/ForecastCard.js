@@ -17,9 +17,15 @@ const ForecastCard = () => {
   const { data, error, isLoading } = useSWR(`${API_WEATHER}/forecast`, fetcher);
   if (isLoading) return <p>LOADING FORECAST....</p>;
   if (error) return <p>ERROR FORECAST...</p>;
-
+  const sunriseTime = data[0].sunriseTime.split(":")[0];
+  const sunsetTime = data[0].sunsetTime.split(":")[0];
+  const currentHour = new Date().getHours();
+  const cardTheme =
+    currentHour > sunsetTime || currentHour < sunriseTime
+      ? "bg-gradient-to-t from-slate-900 to-slate-800"
+      : "bg-gradient-to-t from-sky-700 to-sky-600";
   return (
-    <section className="mb-5 rounded-md bg-gradient-to-t from-sky-700 to-sky-600 p-2 text-white">
+    <section className={`mb-5 rounded-md ${cardTheme} p-2 text-white`}>
       <SelectedDay dayInfo={data[currentDay]}></SelectedDay>
       <SevenDaysSection
         days={data}
