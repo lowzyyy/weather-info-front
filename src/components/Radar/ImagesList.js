@@ -17,9 +17,7 @@ function ImagesList(props) {
           // />
           <picture
             className={`absolute rounded-sm ${
-              props.selectedTime === i
-                ? `z-10 opacity-100 ${props.animation}`
-                : "z-0 opacity-0"
+              props.selectedTime === i ? `z-10 opacity-100` : "z-0 opacity-0"
             }`}
           >
             <source srcSet={`${l.link}`} />
