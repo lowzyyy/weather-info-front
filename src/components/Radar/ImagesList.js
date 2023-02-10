@@ -5,16 +5,26 @@ function ImagesList(props) {
     <>
       {props.links.map((l, i) => {
         return (
-          <img
-            key={i}
+          // <img
+          //   key={i}
+          //   className={`absolute rounded-sm ${
+          //     props.selectedTime === i
+          //       ? `z-10 opacity-100 ${props.animation}`
+          //       : "z-0 opacity-0"
+          //   }`}
+          //   src={`${l.link}`}
+          //   alt="Radar image"
+          // />
+          <picture
             className={`absolute rounded-sm ${
               props.selectedTime === i
                 ? `z-10 opacity-100 ${props.animation}`
                 : "z-0 opacity-0"
             }`}
-            src={`${l.link}`}
-            alt="Radar image"
-          />
+          >
+            <source srcSet={`${l.link}`} />
+            <img src="../../../public/radarska_fallback.png" />
+          </picture>
         );
       })}
     </>
