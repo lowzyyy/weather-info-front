@@ -1,7 +1,7 @@
 import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
 import { useState } from "react";
-import useHideGlobal from "../hooks/useHideGlobal";
+import useHideGlobal from "../../hooks/useHideGlobal";
 import { computeIcon, windDirections } from "@/helpers/hourlyHelpers";
 import { formatCondition } from "@/helpers/hourlyHelpers";
 
@@ -43,17 +43,13 @@ const HourlyItem = (props) => {
       break;
     case "humid":
       middleContent = (
-        <i
-          className={`${is.wi} ${is["wi-humidity"]} text-xl text-cyan-300`}
-        ></i>
+        <i className={`${is.wi} ${is["wi-humidity"]} text-xl text-cyan-300`}></i>
       );
       bottomContent = props.hourInfo.humidity;
       break;
     case "precip":
       middleContent = (
-        <i
-          className={`${is.wi} ${is["wi-raindrop"]} text-xl text-cyan-300`}
-        ></i>
+        <i className={`${is.wi} ${is["wi-raindrop"]} text-xl text-cyan-300`}></i>
       );
       bottomContent = props.hourInfo.precip;
       break;

@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 
-import TodayCard from "../components/Today/TodayCard";
-import ForecastCard from "@/components/Forecast/ForecastCard";
+import TodayCard from "../components/TodayCard/TodayCard";
+import ForecastCard from "@/components/ForecastCard/ForecastCard";
 const inter = Inter({ subsets: ["latin"] });
 
 // TODO: WATER LEVEL AND ADD SATELITE IMAGE TO RADAR PAGE

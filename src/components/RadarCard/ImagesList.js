@@ -1,4 +1,5 @@
 import React from "react";
+
 // 765x565 image size
 function ImagesList(props) {
   return (
@@ -15,6 +16,11 @@ function ImagesList(props) {
           />
         );
       })}
+      <img
+        className="invisible"
+        src="/radar_placeholder.webp"
+        alt="img used to give div height"
+      />
     </>
   );
 }

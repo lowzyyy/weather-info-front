@@ -1,0 +1,27 @@
+import React from "react";
+
+function StaticLinks(props) {
+  const len = props.links.length;
+  const increment = len > 6 ? 10 : 4;
+  return (
+    <ul
+      className={`absolute left-16 top-1 z-20 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8 `}
+    >
+      {props.links.slice(props.links.length - 2).map((l, i) => (
+        <li
+          className={`hover:cursor-pointer ${
+            props.selectedTime === i + increment ? " text-white" : ""
+          }`}
+          index={i + increment}
+          onClick={props.linkCallback}
+          key={l.time}
+          data-link={l.link}
+        >
+          {l.time}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default React.memo(StaticLinks);

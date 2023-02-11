@@ -83,9 +83,8 @@ export const formatCondition = (cond) => {
   return cond
     .replaceAll("am", "")
     .replaceAll("pm", "")
-    .trim()
     .split("/")
-    .map((el) => el.split(" ").join("-"))
+    .map((el) => el.trim().split(" ").join("-"))
     .join(" ");
 };
 
@@ -147,6 +146,9 @@ export const computeIcon = (cond, ...args) => {
       condition === "rain light-snow"
     )
       return "wi-rain-mix";
+    // ##### AM-PM cases
+    // clouds sun
+    if (condition === "clouds sun" || condition === "sun clouds") return "wi-day-cloudy";
   }
 
   if (numOfConditions === 3) {

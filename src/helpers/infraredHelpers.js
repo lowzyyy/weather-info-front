@@ -1,23 +1,23 @@
 import { API_WEATHER } from "./constants";
-const minutes15 = 900_000;
-const fetchInterval = 15;
-const fetchInMin = 10;
+const minutes30 = 1_800_000;
+const fetchInterval = 30;
+const fetchInMin = 5;
 const timePartToString = (value) => {
   return value < 10 ? `0${value}` : value;
 };
 export const createLinkNames = () => {
-  const history = 24; //last 6h
+  const history = 12; //last 6h
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % fetchInterval;
   if (minuteReminder >= fetchInMin)
     timeNow.setMinutes(timeNow.getMinutes() - minuteReminder);
   else timeNow.setMinutes(timeNow.getMinutes() - minuteReminder - fetchInterval);
   const endTs = timeNow.getTime();
-  const startTs = endTs - (history - 1) * minutes15;
+  const startTs = endTs - (history - 1) * minutes30;
   const links = [...Array(history)].map((t, i) => {
-    const time = new Date(startTs + i * minutes15);
+    const time = new Date(startTs + i * minutes30);
     const minute = timePartToString(time.getMinutes());
-    if (i >= 16) {
+    if (i >= 10) {
       const hour = timePartToString(time.getUTCHours());
       const month = timePartToString(time.getUTCMonth() + 1);
       const day = timePartToString(time.getUTCDate());
@@ -25,12 +25,12 @@ export const createLinkNames = () => {
       const imageName = year + month + day + hour + minute;
       return {
         time: `${timePartToString(time.getHours())}:${minute}`,
-        link: `https://www.hidmet.gov.rs/data/radarska_slika/kompozit/ko${imageName}0000dBZ.cappi.png`,
+        link: `https://en.sat24.com/image?type=infraPolair&region=ba&timestamp=${imageName}`,
       };
     } else {
       return {
         time: `${timePartToString(time.getHours())}:${minute}`,
-        link: `${API_WEATHER}/radar/${i + 1}`,
+        link: `${API_WEATHER}/infrared/${i + 1}`,
       };
     }
   });
