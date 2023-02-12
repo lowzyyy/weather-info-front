@@ -18,7 +18,7 @@ function ImagesList(props) {
       })}
       <img
         className="invisible"
-        src="/radar_placeholder.webp"
+        src={props.placeholder}
         alt="img used to give div height"
       />
     </>

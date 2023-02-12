@@ -1,8 +1,7 @@
 import React from "react";
 
 function StaticLinks(props) {
-  const len = props.links.length;
-  const increment = len > 6 ? 10 : 4;
+  const increment = 14;
   return (
     <ul
       className={`absolute left-16 top-1 z-20 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8 `}

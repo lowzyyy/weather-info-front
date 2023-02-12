@@ -6,7 +6,7 @@ const timePartToString = (value) => {
   return value < 10 ? `0${value}` : value;
 };
 export const createLinkNames = () => {
-  const history = 12; //last 6h
+  const history = 16; //last 6h
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % fetchInterval;
   if (minuteReminder >= fetchInMin)
@@ -17,7 +17,7 @@ export const createLinkNames = () => {
   const links = [...Array(history)].map((t, i) => {
     const time = new Date(startTs + i * minutes30);
     const minute = timePartToString(time.getMinutes());
-    if (i >= 10) {
+    if (i >= 14) {
       const hour = timePartToString(time.getUTCHours());
       const month = timePartToString(time.getUTCMonth() + 1);
       const day = timePartToString(time.getUTCDate());

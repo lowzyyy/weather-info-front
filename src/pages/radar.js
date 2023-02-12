@@ -6,7 +6,7 @@ const Radar = () => {
   return (
     <>
       <RadarCard></RadarCard>
-      {/* <InfraredCard></InfraredCard> */}
+      <InfraredCard></InfraredCard>
     </>
   );
 };

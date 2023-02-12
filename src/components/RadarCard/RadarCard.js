@@ -14,11 +14,7 @@ import ImagesList from "@/components/RadarCard/ImagesList";
 
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 // For now just try to use latest image at exactly 10 minutes after...
-const animationType = {
-  0.75: "animate-[fadeOutRadar_0.9s_forwards]",
-  1: "animate-[fadeOutRadar_1.1s_forwards]",
-  1.25: "animate-[fadeOutRadar_1.4s_forwards]",
-};
+
 const baseSpeed = 1000;
 const start2h = 16;
 const start4h = 8;
@@ -34,7 +30,6 @@ function RadarCard() {
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
-  // const animation = shouldAnimate ? animationType[speedMultiplier] : "";
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
 
   useEffect(() => {
@@ -94,7 +89,7 @@ function RadarCard() {
     />
   );
   return (
-    <div className="mb-10 w-full">
+    <div className="mb-6 w-full">
       <div className="flex items-center gap-1 rounded-sm text-lg  ">
         <span>Static</span>
         {shouldAnimate ? rightToggle : leftToggle}
@@ -130,8 +125,8 @@ function RadarCard() {
         <ImagesList
           links={links}
           selectedTime={selectedTime}
-          // animation={animation}
           setLinks={setLinks}
+          placeholder="/radar_placeholder.webp"
         />
       </div>
     </div>

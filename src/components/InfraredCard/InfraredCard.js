@@ -11,16 +11,15 @@ import SpeedOptions from "@/components/RadarCard/SpeedOptions";
 import StaticLinks from "@/components/InfraredCard/StaticLinks";
 import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
-// const start8h = 0
-const start6h = 0;
-const start1h = 10;
+
+const start8h = 0;
+const start6h = 4;
+const start1h = 14;
 const baseSpeed = 1000;
 
-// FIXME: API FOR exist6hDataInfrared
-
 function InfraredCard() {
-  const { data: data6h, isLoading: isLoading6h } = useSWR(
-    `${API_WEATHER}/exist6hData`,
+  const { data: data8h, isLoading: isLoading8h } = useSWR(
+    `${API_WEATHER}/exist8hDataInfrared`,
     (...args) => fetch(...args).then((res) => res.json())
   );
 
@@ -35,7 +34,9 @@ function InfraredCard() {
     if (shouldAnimate) {
       timer = setTimeout(() => {
         if (selectedTime === links.length - 1)
-          setSelectedTime(animateInt === 6 ? start6h : start1h);
+          setSelectedTime(
+            animateInt > 1 ? (animateInt === 6 ? start6h : start8h) : start1h
+          );
         else setSelectedTime((time) => time + 1);
       }, baseSpeed * speedMultiplier);
     }
@@ -44,7 +45,9 @@ function InfraredCard() {
   // ############# CALLBACKS
   const intCallback = useCallback((e) => {
     const animateIntNow = +e.target.dataset.int;
-    setSelectedTime(animateIntNow === 1 ? start1h : start6h);
+    setSelectedTime(
+      animateIntNow > 1 ? (animateIntNow === 6 ? start6h : start8h) : start1h
+    );
     setAnimateInt(+e.target.dataset.int);
   });
   const checkCallback = () => {
@@ -92,8 +95,8 @@ function InfraredCard() {
           <AnimateOptions
             animateInt={animateInt}
             intCallback={intCallback}
-            isLoading6h={isLoading6h}
-            data6h={data6h}
+            isLoading8h={isLoading8h}
+            data8h={data8h}
           />
         )}
       </div>
@@ -116,7 +119,12 @@ function InfraredCard() {
             {links[selectedTime].time}
           </span>
         )}
-        <ImagesList links={links} selectedTime={selectedTime} setLinks={setLinks} />
+        <ImagesList
+          links={links}
+          selectedTime={selectedTime}
+          setLinks={setLinks}
+          placeholder="/infrared_placeholder.webp"
+        />
       </div>
     </div>
   );
