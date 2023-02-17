@@ -113,7 +113,7 @@ function InfraredCard() {
         )}
         {shouldAnimate && (
           <span
-            className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-white`}
+            className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-red-600`}
           >
             <ProgressBar filled={filled} />
             {links[selectedTime].time}

@@ -1,7 +1,11 @@
-import React from "react";
+import WaterGraph from "@/components/WaterGraph/WaterGraph";
 
 function WaterLevel() {
-  return <div>water-level</div>;
+  return (
+    <div>
+      <WaterGraph />
+    </div>
+  );
 }
 
 export default WaterLevel;
