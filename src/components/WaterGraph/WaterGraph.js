@@ -67,8 +67,8 @@ function WaterGraph() {
   };
 
   return (
-    <div>
-      <h2 className="mb-1">Danube level Smederevo</h2>
+    <div className="mx-auto max-w-4xl">
+      <h2 className="mb-1 md:mb-4 md:text-2xl">Danube level Smederevo</h2>
       <IntervalOptions
         levels={selectedData}
         dataCallback={dataCallback}

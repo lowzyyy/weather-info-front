@@ -5,11 +5,11 @@ function StaticLinks(props) {
   const increment = len > 8 ? (len === 16 ? 8 : 16) : 0;
   return (
     <ul
-      className={`absolute left-16 top-1 z-20 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 [&>*]:flex-shrink-0 [&>*]:basis-8 `}
+      className={`absolute left-16 top-1 z-20 flex w-40 flex-wrap gap-1 text-xs font-semibold text-stone-900 md:w-48 [&>*]:flex-shrink-0 [&>*]:basis-8 `}
     >
       {props.links.slice(props.links.length - 8).map((l, i) => (
         <li
-          className={`hover:cursor-pointer ${
+          className={`hover:cursor-pointer md:text-lg ${
             props.selectedTime === i + increment ? " text-white" : ""
           }`}
           index={i + increment}

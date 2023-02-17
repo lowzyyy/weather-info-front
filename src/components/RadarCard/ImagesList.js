@@ -8,7 +8,7 @@ function ImagesList(props) {
         return (
           <img
             key={i}
-            className={`absolute rounded-sm ${
+            className={`absolute w-full rounded-md ${
               props.selectedTime === i ? `z-10 opacity-100 ` : "z-0 opacity-0"
             }`}
             src={`${l.link}`}
@@ -17,7 +17,7 @@ function ImagesList(props) {
         );
       })}
       <img
-        className="invisible"
+        className="invisible w-full"
         src={props.placeholder}
         alt="img used to give div height"
       />

@@ -25,7 +25,9 @@ const ForecastCard = () => {
       ? "bg-gradient-to-t from-slate-900 to-slate-800"
       : "bg-gradient-to-t from-sky-700 to-sky-600";
   return (
-    <section className={`mb-5 rounded-md ${cardTheme} p-2 text-white`}>
+    <section
+      className={`mb-5 max-w-3xl rounded-md ${cardTheme} p-2 text-white md:mx-auto md:p-4`}
+    >
       <SelectedDay dayInfo={data[currentDay]}></SelectedDay>
       <SevenDaysSection
         days={data}

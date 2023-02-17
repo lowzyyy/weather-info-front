@@ -8,7 +8,7 @@ function StaticLinks(props) {
     >
       {props.links.slice(props.links.length - 2).map((l, i) => (
         <li
-          className={`text-base hover:cursor-pointer ${
+          className={`text-base hover:cursor-pointer md-text-lg${
             props.selectedTime === i + increment ? " text-red-500" : ""
           }`}
           index={i + increment}

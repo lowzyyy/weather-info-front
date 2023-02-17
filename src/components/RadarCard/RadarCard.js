@@ -89,8 +89,8 @@ function RadarCard() {
     />
   );
   return (
-    <div className="mb-6 w-full">
-      <div className="flex items-center gap-1 rounded-sm text-lg  ">
+    <div className="mb-6 max-w-3xl rounded-md bg-stone-300 xl:mx-auto">
+      <div className="flex items-center gap-1 rounded-sm text-lg md:p-2 md:text-xl ">
         <span>Static</span>
         {shouldAnimate ? rightToggle : leftToggle}
         <span>Animate</span>

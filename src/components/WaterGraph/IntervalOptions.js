@@ -45,7 +45,7 @@ function IntervalOptions(props) {
     </button>,
   ];
   return (
-    <div className="mb-2 flex gap-2">
+    <div className="mb-2 flex gap-2 md:mb-4">
       <button
         className={`rounded-md border border-black p-1 text-sm ${
           props.selectedInt === 30 ? `${bgColor}` : ""

@@ -23,12 +23,10 @@ const TodayCard = () => {
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.233)), url(${todayData.backgroundImageUrl})`,
       }}
-      className={`mb-5 w-full rounded-md  bg-cover p-2 text-white`}
+      className={`mb-5 w-full max-w-3xl  rounded-md bg-cover p-2 text-white md:mx-auto md:p-4`}
     >
       <div className="mb-10 flex items-end justify-between">
-        <span className="text-4xl">
-          Now {`${todayData.currentTemperature}`}
-        </span>
+        <span className="text-4xl">Now {`${todayData.currentTemperature}`}</span>
 
         <span className="px-1 text-2xl">{`${todayData.condition}`}</span>
       </div>

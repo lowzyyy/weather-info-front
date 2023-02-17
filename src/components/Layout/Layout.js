@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { List, XSquare } from "phosphor-react";
 import { useState } from "react";
 
@@ -6,6 +7,8 @@ const menuIconSize = 24;
 const Layout = (props) => {
   const [menuAnimation, setMenuAnimation] = useState(0);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const router = useRouter();
+  // CALLBACKS
   const mobileMenuCallback = () => {
     if (showMobileMenu) {
       setMenuAnimation(1);
@@ -24,10 +27,18 @@ const Layout = (props) => {
       }, 250);
     }
   };
+  const avatarCallback = () => {
+    router.push("/");
+  };
   return (
     <>
       <header className="h-16 w-full bg-gradient-to-r from-blue-500 to-blue-600  text-blue-100 ">
-        <div className="m-auto flex h-full w-[95%] items-center justify-between p-2 text-3xl">
+        <div className="m-auto flex h-full w-[95%] items-center justify-between p-2 text-3xl sm:w-[90%] lg:w-[75%] xl:w-[60%]">
+          <img
+            onClick={avatarCallback}
+            src="Grb_Smedereva.svg.png"
+            className="hover: hidden max-h-full cursor-pointer lg:block"
+          ></img>
           <span className="flex items-center font-bold ">
             <Link onClick={linkClickCallback} href="/">
               Smederevo weather
@@ -65,7 +76,9 @@ const Layout = (props) => {
           </div>
         </div>
       </header>
-      <main className="mx-auto mt-2 max-w-[95%]  ">{props.children}</main>
+      <main className="mx-auto mt-2 max-w-[95%] sm:max-w-[90%] lg:max-w-[75%] xl:w-[60%] ">
+        {props.children}
+      </main>
     </>
   );
 };
