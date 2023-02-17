@@ -44,7 +44,6 @@ function WaterGraph() {
     console.log(interval);
     setSelectedInt(interval);
   });
-  console.log("rendered");
 
   const data = {
     labels: selectedData.map((el) => {
@@ -76,7 +75,8 @@ function WaterGraph() {
         selectedInt={selectedInt}
       />
       <div className="" id="legend-container"></div>
-      <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>
+      {levels && <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>}
+      {isLoadingLevels && <p>Loading chart data...</p>}
     </div>
   );
 }
