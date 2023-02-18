@@ -21,7 +21,7 @@ const HourlySection = (props) => {
 
   return (
     <div className="mb-2">
-      <div className="mb-2 flex gap-6 overflow-x-auto text-white">
+      <div className="mb-2 flex gap-6 overflow-x-auto text-white md:gap-10">
         <span
           category="temp"
           onClick={categoryCallback}
