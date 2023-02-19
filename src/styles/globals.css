@@ -17,9 +17,13 @@
   margin: 0;
 }
 
-div::-webkit-scrollbar {
-  display: none;
+@media only screen and (max-width: 645px) {
+  div {
+    scrollbar-width: none;
+  }
 }
-div {
-  scrollbar-width: none;
+@media only screen and (min-width: 645px) {
+  div {
+    scrollbar-width: thin;
+  }
 }
