@@ -28,6 +28,7 @@ const Layout = (props) => {
     }
   };
   const avatarCallback = () => {
+    linkClickCallback();
     router.push("/");
   };
   return (
