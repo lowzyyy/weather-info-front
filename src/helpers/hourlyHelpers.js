@@ -143,7 +143,7 @@ export const computeIcon = (cond, ...args) => {
       condition === "ligh-rain snow" ||
       condition === "rain snow" ||
       condition === "light-rain light-snow" ||
-      condition === "rain light-snow"
+      condition === "rain light-snow" || condition==="rain snow-showers"
     )
       return "wi-rain-mix";
     // ##### AM-PM cases
