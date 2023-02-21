@@ -27,6 +27,20 @@
 }
 @media only screen and (min-width: 645px) {
   div {
+    scrollbar-color: #f8fafc #475569;
     scrollbar-width: thin;
+  }
+
+  div::-webkit-scrollbar {
+    background-color: transparent;
+  }
+  div::-webkit-scrollbar:horizontal {
+    background-color: #cbd5e1;
+    height: 9px;
+    border-radius: 4px;
+  }
+  div::-webkit-scrollbar-thumb:horizontal {
+    background-color: #475569;
+    border-radius: 4px;
   }
 }
