@@ -119,7 +119,12 @@ export const computeIcon = (cond, ...args) => {
       return "wi-showers";
     if (condition === "light-rain" || condition === "few-showers") return "wi-sprinkle";
     // snow
-    if (condition === "light-snow" || condition === "snow-showers") return "wi-snow";
+    if (
+      condition === "light-snow" ||
+      condition === "snow-showers" ||
+      condition === "few-snow-showers"
+    )
+      return "wi-snow";
     if (condition === "snow") return "wi-snowflake-cold";
     // sleet
     if (condition === "wintry-mix") return "wi-sleet";
@@ -140,11 +145,11 @@ export const computeIcon = (cond, ...args) => {
       return "wi-snow-wind";
     // rain snow mix
     if (
-      condition === "ligh-rain snow" ||
       condition === "rain snow" ||
-      condition === "light-rain light-snow" ||
       condition === "rain light-snow" ||
-      condition === "rain snow-showers"
+      condition === "rain snow-showers" ||
+      condition === "ligh-rain snow" ||
+      condition === "light-rain light-snow"
     )
       return "wi-rain-mix";
     // ##### AM-PM cases
