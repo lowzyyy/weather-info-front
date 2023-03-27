@@ -15,7 +15,6 @@ const HourlyItem = (props) => {
   const nowH = Number(time);
   const condition = props.hourInfo.condition;
   const weatherIcon = computeIcon(condition, sunriseH, sunsetH, nowH);
-
   let middleContent;
   let bottomContent;
   const cat = props.category;

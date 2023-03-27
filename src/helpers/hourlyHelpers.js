@@ -99,7 +99,7 @@ export const computeIcon = (cond, ...args) => {
     const [sunriseH, sunsetH, nowH] = args;
     iconPart = nowH >= sunriseH && nowH < sunsetH ? "wi-day" : "wi-night-alt";
   }
-  console.log(condition);
+  // console.log(condition);
   if (numOfConditions === 1) {
     // sunny or clear
     if (condition === "sunny") return "wi-day-sunny";
@@ -131,15 +131,21 @@ export const computeIcon = (cond, ...args) => {
     if (condition === "wintry-mix") return "wi-sleet";
   }
   if (numOfConditions === 2) {
+    // sunny wind
+
+    if (condition === "mostly-sunny wind" || condition === "sunny wind")
+      return "wi-day-windy";
     //cloud wind
-    if (
-      condition === "cloudy wind" ||
-      condition === "mostly-cloudy wind" ||
-      condition === "partly-cloudy wind"
-    )
+    if (condition === "cloudy wind" || condition === "mostly-cloudy wind")
       return "wi-cloudy-gusts";
+    if (condition === "partly-cloudy wind") return `${iconPart}-cloudy-gusts`;
     // rain wind
-    if (condition === "rain wind" || condition === "showers wind") return "wi-rain-wind";
+    if (
+      condition === "rain wind" ||
+      condition === "showers wind" ||
+      condition === "light-rain wind"
+    )
+      return "wi-rain-wind";
 
     // snow wind
     if (
@@ -163,6 +169,7 @@ export const computeIcon = (cond, ...args) => {
   }
 
   if (numOfConditions === 3) {
-    if (condition === "rain wind snow") return "wi-rain-mix";
+    if (condition === "rain wind snow" || condition === "rain snow wind")
+      return "wi-rain-mix";
   }
 };
