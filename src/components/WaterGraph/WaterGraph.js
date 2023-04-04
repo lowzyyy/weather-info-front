@@ -29,10 +29,11 @@ const days30 = 30;
 const days60 = 60;
 const days90 = 90;
 function WaterGraph() {
-  const { data: levels, isLoading: isLoadingLevels } = useSWR(
-    `/api/waterLevels`,
-    (...args) => fetch(...args).then((res) => res.json())
-  );
+  const {
+    data: levels,
+    isLoading: isLoadingLevels,
+    error: errorLevels,
+  } = useSWR(`/api/waterLevels`, (...args) => fetch(...args).then((res) => res.json()));
   // STATES
   const [selectedInt, setSelectedInt] = useState(days30);
   let selectedData = [];
@@ -41,7 +42,6 @@ function WaterGraph() {
   // CALLBACKS
   const dataCallback = useCallback((e) => {
     const interval = +e.target.dataset.interval;
-    console.log(interval);
     setSelectedInt(interval);
   });
 
@@ -66,17 +66,18 @@ function WaterGraph() {
     ],
   };
 
+  if (isLoadingLevels) return <p>Loading water level...</p>;
+  if (errorLevels) return <p>Error loading water level...</p>;
   return (
     <div className="mx-auto max-w-4xl">
       <h2 className="mb-1 md:mb-4 md:text-2xl">Danube level Smederevo</h2>
       <IntervalOptions
-        levels={selectedData}
+        levelsLength={levels.length}
         dataCallback={dataCallback}
         selectedInt={selectedInt}
       />
       <div className="" id="legend-container"></div>
-      {levels && <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>}
-      {isLoadingLevels && <p>Loading chart data...</p>}
+      <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>
     </div>
   );
 }

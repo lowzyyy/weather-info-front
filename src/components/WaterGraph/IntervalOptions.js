@@ -56,7 +56,7 @@ function IntervalOptions(props) {
         30 days
       </button>
       {optionsList.filter((el) => {
-        return +el.props["data-interval"] <= props.levels.length;
+        return +el.props["data-interval"] <= props.levelsLength;
       })}
     </div>
   );
