@@ -110,8 +110,11 @@ export const computeIcon = (cond, ...args) => {
     if (condition === "partly-cloudy") return `${iconPart}-cloudy`;
     if (condition === "mostly-cloudy") return "wi-cloudy";
     if (condition === "cloudy") return "wi-cloud";
-    // rain
-    if (condition === "rain") return "wi-rain";
+    // thunderstorms
+    if (condition === "thunderstorms") return "wi-thunderstorm";
+    if (condition === "rain")
+      // rain
+      return "wi-rain";
     if (
       condition === "scattered-showers" ||
       condition === "showers" ||
