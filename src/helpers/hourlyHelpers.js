@@ -91,7 +91,7 @@ export const formatCondition = (cond) => {
 export const computeIcon = (cond, ...args) => {
   const condition = formatCondition(cond.toLowerCase());
   const numOfConditions = condition.split(" ").length;
-  console.log(condition);
+  // console.log(condition);
   let iconPart;
   if (args.length === 1) {
     const [day] = args;
@@ -170,6 +170,8 @@ export const computeIcon = (cond, ...args) => {
       condition === "light-rain light-snow"
     )
       return "wi-rain-mix";
+    // rain thunder
+    if (condition === "rain thunder") return "wi-thunderstorm";
     // ##### AM-PM cases
     // clouds sun
     if (condition === "clouds sun" || condition === "sun clouds") return "wi-day-cloudy";
