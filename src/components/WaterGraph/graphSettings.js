@@ -177,7 +177,6 @@ export const options = {
         tickColor: axisColor,
         drawTicks: true,
         drawOnChartArea: false,
-        axisColor,
       },
     },
   },
