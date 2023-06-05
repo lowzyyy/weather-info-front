@@ -11,7 +11,7 @@ const TodayCard = () => {
     isLoading: isLoadingToday,
   } = useSWR(`${API_WEATHER}/today`, fetcher);
 
-  if (isLoadingToday) return <p>LOADING TODAY....</p>;
+  if (isLoadingToday) return <p className="max-w-3xl md:mx-auto">LOADING TODAY....</p>;
   if (todayError) return <p>ERROR TODAY...</p>;
   const sunTimes = {
     sunset: todayData.sunsetTime,
