@@ -70,14 +70,16 @@ function WaterGraph() {
   if (errorLevels) return <p>Error loading water level...</p>;
   return (
     <div className="mx-auto max-w-4xl">
-      <h2 className="mb-1 md:mb-4 md:text-2xl">Danube level Smederevo</h2>
+      <h2 className="mb-1 font-semibold md:mb-4 md:text-2xl">Danube level Smederevo</h2>
       <IntervalOptions
         levelsLength={levels.length}
         dataCallback={dataCallback}
         selectedInt={selectedInt}
       />
-      <div className="" id="legend-container"></div>
-      <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>
+      <div className="rounded-md bg-[#ffffff98]">
+        <div className="" id="legend-container"></div>
+        <Line data={data} options={options} plugins={[htmlLegendPlugin]}></Line>
+      </div>
     </div>
   );
 }

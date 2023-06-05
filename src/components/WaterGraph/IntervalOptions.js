@@ -1,7 +1,7 @@
 import React from "react";
 
 function IntervalOptions(props) {
-  const bgColor = "bg-indigo-100";
+  const bgColor = "bg-indigo-200";
   const optionsList = [
     <button
       className={`rounded-md border border-black p-1 text-sm ${
