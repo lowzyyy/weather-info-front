@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
 import useSWR from "swr";
 // helpers
-import { API_WEATHER } from "@/helpers/constants";
+import { fetcher } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/radarHelpers";
 
 // components
@@ -11,6 +11,7 @@ import SpeedOptions from "@/components/RadarCard/SpeedOptions";
 import StaticLinks from "@/components/RadarCard/StaticLinks";
 import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
+import { UrlContext } from "../UrlContext/UrlContext";
 
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 // For now just try to use latest image at exactly 10 minutes after...
@@ -20,13 +21,14 @@ const start2h = 16;
 const start4h = 8;
 const start6h = 0;
 function RadarCard() {
+  const API_WEATHER = useContext(UrlContext);
+  console.log(API_WEATHER);
   const { data: data6h, isLoading: isLoading6h } = useSWR(
     `${API_WEATHER}/exist6hDataRadar`,
-    (...args) => fetch(...args).then((res) => res.json())
+    fetcher
   );
-
   const [animateInt, setAnimateInt] = useState(2);
-  const [links, setLinks] = useState(() => createLinkNames());
+  const [links, setLinks] = useState(() => createLinkNames(API_WEATHER));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);

@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ToggleLeft, ToggleRight } from "phosphor-react";
 import useSWR from "swr";
 // helpers
-import { API_WEATHER } from "@/helpers/constants";
+import { fetcher } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/infraredHelpers";
 
 // components
@@ -11,6 +11,7 @@ import SpeedOptions from "@/components/RadarCard/SpeedOptions";
 import StaticLinks from "@/components/InfraredCard/StaticLinks";
 import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
+import { UrlContext } from "../UrlContext/UrlContext";
 
 const start8h = 0;
 const start6h = 4;
@@ -18,13 +19,14 @@ const start1h = 14;
 const baseSpeed = 1000;
 
 function InfraredCard() {
+  const API_WEATHER = useContext(UrlContext);
   const { data: data8h, isLoading: isLoading8h } = useSWR(
     `${API_WEATHER}/exist8hDataInfrared`,
-    (...args) => fetch(...args).then((res) => res.json())
+    fetcher
   );
 
   const [animateInt, setAnimateInt] = useState(1);
-  const [links, setLinks] = useState(() => createLinkNames());
+  const [links, setLinks] = useState(() => createLinkNames(API_WEATHER));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);

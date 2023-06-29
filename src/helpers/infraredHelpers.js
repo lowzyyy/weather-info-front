@@ -1,11 +1,10 @@
-import { API_WEATHER } from "./constants";
 const minutes30 = 1_800_000;
 const fetchInterval = 30;
 const fetchInMin = 5;
 const timePartToString = (value) => {
   return value < 10 ? `0${value}` : value;
 };
-export const createLinkNames = () => {
+export const createLinkNames = (API_WEATHER) => {
   const history = 16; //last 6h
   const timeNow = new Date();
   const minuteReminder = timeNow.getMinutes() % fetchInterval;

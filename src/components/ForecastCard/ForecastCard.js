@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useSWR from "swr";
 
 import SelectedDay from "./SelectedDay";
 import SevenDaysSection from "./SevenDaysSection";
-import { API_WEATHER } from "@/helpers/constants";
+import { API_WEATHER, fetcher } from "@/helpers/constants";
+import { UrlContext } from "../UrlContext/UrlContext";
 
 const ForecastCard = () => {
   const [currentDay, setCurrentDay] = useState(0);
@@ -12,8 +13,7 @@ const ForecastCard = () => {
     const selectedId = Number(e.currentTarget.dataset.dayid);
     setCurrentDay(selectedId);
   };
-
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const API_WEATHER = useContext(UrlContext);
   const { data, error, isLoading } = useSWR(`${API_WEATHER}/forecast`, fetcher);
   if (isLoading) return <p className="max-w-3xl md:mx-auto">LOADING FORECAST....</p>;
   if (data.length === 0)

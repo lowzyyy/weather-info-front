@@ -2,9 +2,13 @@ import is from "../../styles/weather-icons.min.module.css";
 import { NavigationArrow } from "phosphor-react";
 import useSWR from "swr";
 import HourlySection from "./HourlySection";
-import { API_WEATHER } from "@/helpers/constants";
+// import { API_WEATHER } from "@/helpers/constants";
+import { useContext } from "react";
+import { UrlContext } from "../UrlContext/UrlContext";
+import { fetcher } from "@/helpers/constants";
 const TodayCard = () => {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const API_WEATHER = useContext(UrlContext);
+
   const {
     data: todayData,
     error: todayError,

@@ -1,9 +1,11 @@
 import HourlyList from "./HourlyList";
 import useSWR from "swr";
-import { useState } from "react";
-import { API_WEATHER } from "@/helpers/constants";
+import { useContext, useState } from "react";
+// import { API_WEATHER } from "@/helpers/constants";
+import { UrlContext } from "../UrlContext/UrlContext";
+import { fetcher } from "@/helpers/constants";
 const HourlySection = (props) => {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const API_WEATHER = useContext(UrlContext);
 
   const [category, setPickedCategory] = useState("temp");
   const categoryCallback = (e) => {
