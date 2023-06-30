@@ -12,6 +12,7 @@ import StaticLinks from "@/components/InfraredCard/StaticLinks";
 import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
 import { UrlContext } from "../UrlContext/UrlContext";
+import ToggleAnimation from "../RadarCard/ToggleAnimation";
 
 const start8h = 0;
 const start6h = 4;
@@ -26,7 +27,7 @@ function InfraredCard() {
   );
 
   const [animateInt, setAnimateInt] = useState(1);
-  const [links, setLinks] = useState(() => createLinkNames(API_WEATHER));
+  const [links, setLinks] = useState(createLinkNames(API_WEATHER));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
@@ -34,15 +35,15 @@ function InfraredCard() {
   useEffect(() => {
     let timer;
     if (shouldAnimate) {
-      timer = setTimeout(() => {
-        if (selectedTime === links.length - 1)
+      timer = setInterval(() => {
+        if (selectedTime >= links.length - 1) {
           setSelectedTime(
             animateInt > 1 ? (animateInt === 6 ? start6h : start8h) : start1h
           );
-        else setSelectedTime((time) => time + 1);
+        } else setSelectedTime((time) => time + 1);
       }, baseSpeed * speedMultiplier);
     }
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   }, [shouldAnimate, selectedTime, speedMultiplier]);
   // ############# CALLBACKS
   const intCallback = useCallback((e) => {
@@ -52,18 +53,18 @@ function InfraredCard() {
     );
     setAnimateInt(+e.target.dataset.int);
   });
-  const checkCallback = () => {
+  const checkCallback = useCallback(() => {
     if (shouldAnimate) {
       setShouldAnimate(false);
-      setLinks(createLinkNames());
+      setLinks(createLinkNames(API_WEATHER));
       setSelectedTime(links.length - 1);
       setAnimateInt(1);
     } else {
       setShouldAnimate(true);
-      setLinks(createLinkNames());
+      setLinks(createLinkNames(API_WEATHER));
       setSelectedTime(start1h);
     }
-  };
+  }, [shouldAnimate]);
   const linkCallback = useCallback((e) => {
     setSelectedTime(+e.target.getAttribute("index"));
   });
@@ -71,27 +72,12 @@ function InfraredCard() {
   const speedCallback = useCallback((e) => {
     setSpeedMultiplier(+e.target.dataset.speed);
   });
-  const rightToggle = (
-    <ToggleRight
-      className="fill-blue-500"
-      onClick={checkCallback}
-      size={35}
-      weight="fill"
-    />
-  );
-  const leftToggle = (
-    <ToggleLeft
-      className="fill-blue-500"
-      onClick={checkCallback}
-      size={35}
-      weight="fill"
-    />
-  );
+
   return (
     <div className="mb-20 max-w-3xl rounded-md bg-stone-300 xl:mx-auto">
       <div className="flex items-center gap-1 rounded-sm text-lg md:p-2 md:text-xl">
         <span>Static</span>
-        {shouldAnimate ? rightToggle : leftToggle}
+        <ToggleAnimation checkCallback={checkCallback} selectedTime={selectedTime} />
         <span>Animate</span>
         {shouldAnimate && (
           <AnimateOptions

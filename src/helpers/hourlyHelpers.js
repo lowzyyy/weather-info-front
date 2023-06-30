@@ -91,7 +91,7 @@ export const formatCondition = (cond) => {
 export const computeIcon = (cond, ...args) => {
   const condition = formatCondition(cond.toLowerCase());
   const numOfConditions = condition.split(" ").length;
-  console.log(condition);
+  // console.log(condition);
   let iconPart;
   if (args.length === 1) {
     const [day] = args;
