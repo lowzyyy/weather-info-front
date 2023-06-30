@@ -77,7 +77,7 @@ function InfraredCard() {
     <div className="mb-20 max-w-3xl rounded-md bg-stone-300 xl:mx-auto">
       <div className="flex items-center gap-1 rounded-sm text-lg md:p-2 md:text-xl">
         <span>Static</span>
-        <ToggleAnimation checkCallback={checkCallback} selectedTime={selectedTime} />
+        <ToggleAnimation checkCallback={checkCallback} shouldAnimate={shouldAnimate} />
         <span>Animate</span>
         {shouldAnimate && (
           <AnimateOptions
