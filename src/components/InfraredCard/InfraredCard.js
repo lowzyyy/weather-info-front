@@ -1,15 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import {
-  Cloud,
-  CloudSun,
-  GlobeHemisphereEast,
-  ToggleLeft,
-  ToggleRight,
-} from "phosphor-react";
+import { GlobeHemisphereEast } from "phosphor-react";
 import useSWR from "swr";
 // helpers
 import { fetcher } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/infraredHelpers";
+import placeholder from "../../../public/infrared_placeholder.webp";
 
 // components
 import AnimateOptions from "@/components/InfraredCard/AnimateOptions";
@@ -107,7 +102,10 @@ function InfraredCard() {
       )}
 
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div
+          className="flex items-center justify-center"
+          style={{ width: "845px", height: "615px" }}
+        >
           <div className="absolute">
             <GlobeHemisphereEast
               className="h-20 w-20 animate-bounce text-red-800 xl:h-40 xl:w-40 "
@@ -115,11 +113,6 @@ function InfraredCard() {
             />
             <p className="text-center font-semibold ">Loading...</p>
           </div>
-          <img
-            className="invisible w-full"
-            src="/radar_placeholder.webp"
-            alt="img used to give div height"
-          />
         </div>
       ) : (
         <div className="relative rounded-md">

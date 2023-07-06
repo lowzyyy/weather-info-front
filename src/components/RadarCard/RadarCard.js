@@ -1,15 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import {
-  Cloud,
-  CloudSun,
-  GlobeHemisphereWest,
-  ToggleLeft,
-  ToggleRight,
-} from "phosphor-react";
+import { GlobeHemisphereWest } from "phosphor-react";
 import useSWR from "swr";
 // helpers
 import { fetcher } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/radarHelpers";
+import placeholder from "../../../public/radar_placeholder.webp";
 
 // components
 import AnimateOptions from "@/components/RadarCard/AnimateOptions";
@@ -106,7 +101,10 @@ function RadarCard() {
         <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
       )}
       {isLoading ? (
-        <div className="flex items-center justify-center">
+        <div
+          className="flex h-[565] w-[760px] items-center justify-center"
+          style={{ width: "760px", height: "565px" }}
+        >
           <div className="absolute">
             <GlobeHemisphereWest
               className="h-20 w-20 animate-bounce text-sky-500 xl:h-40 xl:w-40 "
@@ -114,11 +112,6 @@ function RadarCard() {
             />
             <p className="text-center font-semibold ">Loading...</p>
           </div>
-          <img
-            className="invisible w-full"
-            src="/radar_placeholder.webp"
-            alt="img used to give div height"
-          />
         </div>
       ) : (
         <div className="relative rounded-md">
