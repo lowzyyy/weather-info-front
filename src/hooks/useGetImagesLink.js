@@ -1,0 +1,27 @@
+import useSWR from "swr";
+
+const fetcher = (url) =>
+  fetch(url, {
+    headers: {
+      "ngrok-skip-browser-warning": "true",
+    },
+  })
+    .then((res) => res.blob())
+    .then((blob) => URL.createObjectURL(blob))
+    .catch((error) => "error");
+
+const arrayFetcher = (urls) => {
+  return Promise.all(urls.map((url) => fetcher(url)));
+};
+
+const useGetImagesLink = (links) => {
+  const urls = links
+    .map((el) => el.link)
+    .filter((el) => {
+      return !(el.includes("sat24") || el.includes("hidmet"));
+    });
+  const result = useSWR(urls, arrayFetcher);
+  return result;
+};
+
+export default useGetImagesLink;

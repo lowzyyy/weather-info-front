@@ -1,5 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ToggleLeft, ToggleRight } from "phosphor-react";
+import {
+  Cloud,
+  CloudSun,
+  GlobeHemisphereWest,
+  ToggleLeft,
+  ToggleRight,
+} from "phosphor-react";
 import useSWR from "swr";
 // helpers
 import { fetcher } from "@/helpers/constants";
@@ -13,6 +19,7 @@ import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
 import { UrlContext } from "../UrlContext/UrlContext";
 import ToggleAnimation from "./ToggleAnimation";
+import useGetImagesLink from "@/hooks/useGetImagesLink";
 
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 // For now just try to use latest image at exactly 10 minutes after...
@@ -33,6 +40,13 @@ function RadarCard() {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
+
+  const { data, isLoading } = useGetImagesLink(links);
+  const linksAvailable = links
+    .slice(links.findIndex((el) => el.link.includes("hidmet")))
+    .map((el) => el.link);
+  const linksFinal = data ? [...data, ...linksAvailable] : linksAvailable;
+
   useEffect(() => {
     let timer;
     if (shouldAnimate) {
@@ -91,29 +105,45 @@ function RadarCard() {
       {shouldAnimate && (
         <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
       )}
-      <div className="relative rounded-md">
-        {!shouldAnimate && (
-          <StaticLinks
-            links={links}
-            selectedTime={selectedTime}
-            linkCallback={linkCallback}
+      {isLoading ? (
+        <div className="flex items-center justify-center">
+          <div className="absolute">
+            <GlobeHemisphereWest
+              className="h-20 w-20 animate-bounce text-sky-500 xl:h-40 xl:w-40 "
+              weight="duotone"
+            />
+            <p className="text-center font-semibold ">Loading...</p>
+          </div>
+          <img
+            className="invisible w-full"
+            src="/radar_placeholder.webp"
+            alt="img used to give div height"
           />
-        )}
-        {shouldAnimate && (
-          <span
-            className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-white`}
-          >
-            <ProgressBar filled={filled} />
-            {links[selectedTime].time}
-          </span>
-        )}
-        <ImagesList
-          links={links}
-          selectedTime={selectedTime}
-          setLinks={setLinks}
-          placeholder="/radar_placeholder.webp"
-        />
-      </div>
+        </div>
+      ) : (
+        <div className="relative rounded-md">
+          {!shouldAnimate && (
+            <StaticLinks
+              links={links}
+              selectedTime={selectedTime}
+              linkCallback={linkCallback}
+            />
+          )}
+          {shouldAnimate && (
+            <span
+              className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-white`}
+            >
+              <ProgressBar filled={filled} />
+              {links[selectedTime].time}
+            </span>
+          )}
+          <ImagesList
+            links={linksFinal}
+            selectedTime={selectedTime}
+            placeholder="/radar_placeholder.webp"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -58,11 +58,6 @@ const Layout = (props) => {
             menuAnimation === 0 ? "animate-fadeIn" : "animate-fadeOut"
           } bg-stone-200 ${showMobileMenu ? "block" : "hidden"}`}
         >
-          {/* <div
-          className={`absolute z-50  h-screen w-full  bg-stone-200 p-8  text-slate-900 ${
-            showMobileMenu ? "block" : "hidden"
-          }`}
-        > */}
           <div className="mx-auto flex w-40  flex-col gap-3 [&>*]:flex [&>*]:justify-start [&>*]:text-2xl">
             <span className="h-10 p-1  text-center font-semibold">
               <Link onClick={mobileMenuCallback} href={"/radar"}>
@@ -77,7 +72,7 @@ const Layout = (props) => {
           </div>
         </div>
       </header>
-      <main className="mx-auto mt-2 max-w-[95%] sm:max-w-[90%] lg:max-w-[75%] xl:w-[60%] ">
+      <main className="mx-auto mt-2 max-w-[95%] sm:max-w-[90%] lg:max-w-[75%] xl:w-[60%]">
         {props.children}
       </main>
     </>

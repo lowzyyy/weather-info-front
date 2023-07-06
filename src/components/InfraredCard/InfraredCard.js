@@ -1,5 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { ToggleLeft, ToggleRight } from "phosphor-react";
+import {
+  Cloud,
+  CloudSun,
+  GlobeHemisphereEast,
+  ToggleLeft,
+  ToggleRight,
+} from "phosphor-react";
 import useSWR from "swr";
 // helpers
 import { fetcher } from "@/helpers/constants";
@@ -13,6 +19,7 @@ import ProgressBar from "@/components/RadarCard/ProgressBar";
 import ImagesList from "@/components/RadarCard/ImagesList";
 import { UrlContext } from "../UrlContext/UrlContext";
 import ToggleAnimation from "../RadarCard/ToggleAnimation";
+import useGetImagesLink from "@/hooks/useGetImagesLink";
 
 const start8h = 0;
 const start6h = 4;
@@ -32,6 +39,13 @@ function InfraredCard() {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
   const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
+
+  const { data, isLoading } = useGetImagesLink(links);
+  const linksAvailable = links
+    .slice(links.findIndex((el) => el.link.includes("sat24")))
+    .map((el) => el.link);
+  const linksFinal = data ? [...data, ...linksAvailable] : linksAvailable;
+
   useEffect(() => {
     let timer;
     if (shouldAnimate) {
@@ -91,29 +105,46 @@ function InfraredCard() {
       {shouldAnimate && (
         <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
       )}
-      <div className="relative rounded-md">
-        {!shouldAnimate && (
-          <StaticLinks
-            links={links}
-            selectedTime={selectedTime}
-            linkCallback={linkCallback}
+
+      {isLoading ? (
+        <div className="flex items-center justify-center">
+          <div className="absolute">
+            <GlobeHemisphereEast
+              className="h-20 w-20 animate-bounce text-red-800 xl:h-40 xl:w-40 "
+              weight="duotone"
+            />
+            <p className="text-center font-semibold ">Loading...</p>
+          </div>
+          <img
+            className="invisible w-full"
+            src="/radar_placeholder.webp"
+            alt="img used to give div height"
           />
-        )}
-        {shouldAnimate && (
-          <span
-            className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-red-600`}
-          >
-            <ProgressBar filled={filled} />
-            {links[selectedTime].time}
-          </span>
-        )}
-        <ImagesList
-          links={links}
-          selectedTime={selectedTime}
-          setLinks={setLinks}
-          placeholder="/infrared_placeholder.webp"
-        />
-      </div>
+        </div>
+      ) : (
+        <div className="relative rounded-md">
+          {!shouldAnimate && (
+            <StaticLinks
+              links={links}
+              selectedTime={selectedTime}
+              linkCallback={linkCallback}
+            />
+          )}
+          {shouldAnimate && (
+            <span
+              className={`absolute top-0 z-20 flex flex-col text-lg font-semibold text-red-600`}
+            >
+              <ProgressBar filled={filled} />
+              {links[selectedTime].time}
+            </span>
+          )}
+          <ImagesList
+            links={linksFinal}
+            selectedTime={selectedTime}
+            placeholder="/infrared_placeholder.webp"
+          />
+        </div>
+      )}
     </div>
   );
 }
