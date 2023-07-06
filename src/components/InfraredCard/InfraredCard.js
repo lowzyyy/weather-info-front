@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { GlobeHemisphereEast } from "phosphor-react";
 import useSWR from "swr";
 // helpers
-import { fetcher } from "@/helpers/constants";
+import { fetcher, infraredSize } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/infraredHelpers";
 import placeholder from "../../../public/infrared_placeholder.webp";
 
@@ -15,6 +15,7 @@ import ImagesList from "@/components/RadarCard/ImagesList";
 import { UrlContext } from "../UrlContext/UrlContext";
 import ToggleAnimation from "../RadarCard/ToggleAnimation";
 import useGetImagesLink from "@/hooks/useGetImagesLink";
+import Image from "next/image";
 
 const start8h = 0;
 const start6h = 4;
@@ -102,15 +103,7 @@ function InfraredCard() {
       )}
 
       {isLoading ? (
-        <div
-          className="flex items-center justify-center"
-          style={{
-            maxWidth: "845px",
-            maxHeight: "615px",
-            minWidth: "300px",
-            minHeight: "250px",
-          }}
-        >
+        <div className="flex items-center justify-center">
           <div className="absolute">
             <GlobeHemisphereEast
               className="h-20 w-20 animate-bounce text-red-800 xl:h-40 xl:w-40 "
@@ -118,6 +111,11 @@ function InfraredCard() {
             />
             <p className="text-center font-semibold ">Loading...</p>
           </div>
+          <Image
+            className="invisible w-full"
+            src={placeholder}
+            alt="img used to give div height"
+          />
         </div>
       ) : (
         <div className="relative rounded-md">

@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { GlobeHemisphereWest } from "phosphor-react";
 import useSWR from "swr";
 // helpers
-import { fetcher } from "@/helpers/constants";
+import { fetcher, radarSize } from "@/helpers/constants";
 import { createLinkNames } from "@/helpers/radarHelpers";
 import placeholder from "../../../public/radar_placeholder.webp";
 
@@ -15,6 +15,7 @@ import ImagesList from "@/components/RadarCard/ImagesList";
 import { UrlContext } from "../UrlContext/UrlContext";
 import ToggleAnimation from "./ToggleAnimation";
 import useGetImagesLink from "@/hooks/useGetImagesLink";
+import Image from "next/image";
 
 // FIXME: EDGE CASE WHEN SELECTING ANIMATE IN TIME WHERE RHMZ IS PUSHING NEW IMAGE AND REMOVING OLD, AT 0 PLACE IMG LINK IS NOT VALID IN LINKS ARRAY
 // For now just try to use latest image at exactly 10 minutes after...
@@ -101,15 +102,7 @@ function RadarCard() {
         <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
       )}
       {isLoading ? (
-        <div
-          className="flex items-center justify-center"
-          style={{
-            maxWidth: "760px",
-            maxHeight: "565px",
-            minWidth: "300px",
-            minHeight: "250px",
-          }}
-        >
+        <div className="flex items-center justify-center">
           <div className="absolute">
             <GlobeHemisphereWest
               className="h-20 w-20 animate-bounce text-sky-500 xl:h-40 xl:w-40 "
@@ -117,6 +110,11 @@ function RadarCard() {
             />
             <p className="text-center font-semibold ">Loading...</p>
           </div>
+          <Image
+            className="invisible w-full"
+            src={placeholder}
+            alt="img used to give div height"
+          />
         </div>
       ) : (
         <div className="relative rounded-md">

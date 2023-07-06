@@ -8,3 +8,19 @@ export const fetcher = (...args) =>
       "ngrok-skip-browser-warning": "true",
     },
   }).then((res) => res.json());
+
+export const radarSize = {
+  height: "565px",
+  width: "760px",
+  maxWidth: "760px",
+  maxHeight: "565px",
+  // minWidth: "300px",
+  // minHeight: "250px",
+};
+
+export const infraredSize = {
+  maxWidth: "845px",
+  maxHeight: "615px",
+  minWidth: "300px",
+  minHeight: "250px",
+};
