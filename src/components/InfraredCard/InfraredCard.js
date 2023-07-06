@@ -104,7 +104,12 @@ function InfraredCard() {
       {isLoading ? (
         <div
           className="flex items-center justify-center"
-          style={{ width: "845px", height: "615px" }}
+          style={{
+            maxWidth: "845px",
+            maxHeight: "615px",
+            minWidth: "300px",
+            minHeight: "250px",
+          }}
         >
           <div className="absolute">
             <GlobeHemisphereEast

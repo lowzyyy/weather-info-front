@@ -102,8 +102,13 @@ function RadarCard() {
       )}
       {isLoading ? (
         <div
-          className="flex h-[565] w-[760px] items-center justify-center"
-          style={{ width: "760px", height: "565px" }}
+          className="flex items-center justify-center"
+          style={{
+            maxWidth: "760px",
+            maxHeight: "565px",
+            minWidth: "300px",
+            minHeight: "250px",
+          }}
         >
           <div className="absolute">
             <GlobeHemisphereWest
