@@ -38,10 +38,10 @@ const SelectedDay = (props) => {
             Precip
             <span className="flex items-center gap-2">
               <i
-                title={`${dayInfo.dayPrecipType}`}
+                title={`${dayInfo.dayPrecipType ?? "-"}`}
                 className={`${is.wi} ${is[`${dayIcon}`]}   text-2xl text-cyan-200`}
               ></i>
-              {` ${dayInfo.dayPrecip}`}
+              {` ${dayInfo.dayPrecip ?? "-"}`}
             </span>
           </div>
           <div className="text-lg">
@@ -53,9 +53,9 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline ${windDirections[dayInfo.dayWindDirection]}`}
+                className={`inline ${windDirections[dayInfo.dayWindDirection] ?? "-"}`}
               />
-              {`${dayInfo.dayWindSpeed} `}
+              {`${dayInfo.dayWindSpeed ?? "-"} `}
             </span>
           </div>
           <div className="text-lg">
@@ -75,10 +75,10 @@ const SelectedDay = (props) => {
             Precip
             <span className="flex items-center gap-2">
               <i
-                title={`${dayInfo.nightPrecipType}`}
+                title={`${dayInfo.nightPrecipType ?? "-"}`}
                 className={`${is.wi} ${is[`${nightIcon}`]}   text-2xl text-cyan-200`}
               ></i>
-              {` ${dayInfo.nightPrecip}`}
+              {` ${dayInfo.nightPrecip ?? "-"}`}
             </span>
           </div>
           <div className="text-lg">
@@ -90,9 +90,9 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline ${windDirections[dayInfo.nightWindDirection]}`}
+                className={`inline ${windDirections[dayInfo.nightWindDirection] ?? "-"}`}
               />
-              {`${dayInfo.nightWindSpeed} `}
+              {`${dayInfo.nightWindSpeed ?? "-"} `}
             </span>
           </div>
           <div className="text-lg">
