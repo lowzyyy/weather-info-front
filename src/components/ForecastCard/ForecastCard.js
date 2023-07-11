@@ -25,8 +25,8 @@ const ForecastCard = () => {
   const currentHour = new Date().getHours();
   const cardTheme =
     currentHour > sunsetTime || currentHour < sunriseTime
-      ? "bg-gradient-to-t from-slate-900 to-slate-800"
-      : "bg-gradient-to-t from-sky-700 to-sky-600";
+      ? "bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"
+      : "bg-gradient-to-b from-sky-600 via-sky-700  to-sky-600";
 
   return (
     <section
