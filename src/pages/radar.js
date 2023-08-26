@@ -18,7 +18,7 @@ const Radar = ({ url }) => {
       </Head>
       <UrlContext.Provider value={url}>
         <RadarCard></RadarCard>
-        {/* <InfraredCard></InfraredCard> */}
+        <InfraredCard></InfraredCard>
       </UrlContext.Provider>
     </>
   );
