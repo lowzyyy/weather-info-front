@@ -24,3 +24,23 @@ export const infraredSize = {
   minWidth: "300px",
   minHeight: "250px",
 };
+
+export const getApiUrl = async () => {
+  const ngrokRes = await fetch("https://api.ngrok.com/tunnels", {
+    headers: {
+      Authorization: `Bearer ${process.env.ngrok_api_key}`,
+      "ngrok-version": "2",
+    },
+  });
+  if (!ngrokRes.ok) console.log(`ERROR NGROK API: ${ngrokRes.status}`);
+
+  const { tunnels } = await ngrokRes.json();
+
+  const url = tunnels.find(
+    (t) => t.public_url.startsWith("https") && t.metadata === "sd-weather"
+  );
+  if (!url) return { props: { url: null } };
+  return {
+    props: { url: url.public_url },
+  };
+};

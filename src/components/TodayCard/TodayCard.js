@@ -15,8 +15,9 @@ const TodayCard = () => {
     isLoading: isLoadingToday,
   } = useSWR(`${API_WEATHER}/today`, fetcher);
 
-  if (isLoadingToday) return <p className="max-w-3xl md:mx-auto">LOADING TODAY....</p>;
-  if (todayError) return <p>ERROR TODAY...</p>;
+  if (isLoadingToday)
+    return <p className="max-w-3xl md:mx-auto">LOADING TODAY....</p>;
+  if (todayError) return <p className="max-w-3xl md:mx-auto">ERROR TODAY...</p>;
   const sunTimes = {
     sunset: todayData.sunsetTime,
     sunrise: todayData.sunriseTime,
@@ -30,7 +31,9 @@ const TodayCard = () => {
       className={`mb-5 w-full max-w-3xl  rounded-md bg-cover p-2 text-white md:mx-auto md:p-4`}
     >
       <div className="mb-10 flex items-end justify-between">
-        <span className="text-4xl">Now {`${todayData.currentTemperature}`}</span>
+        <span className="text-4xl">
+          Now {`${todayData.currentTemperature}`}
+        </span>
 
         <span className="px-1 text-2xl">{`${todayData.condition}`}</span>
       </div>
