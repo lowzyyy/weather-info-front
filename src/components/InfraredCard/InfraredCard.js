@@ -24,24 +24,25 @@ const baseSpeed = 1000;
 
 function InfraredCard() {
   const API_WEATHER = useContext(UrlContext);
-  const { data: data8h, isLoading: isLoading8h } = useSWR(
-    `${API_WEATHER}/exist8hDataInfrared`,
-    fetcher
-  );
+  // const { data: data8h, isLoading: isLoading8h } = useSWR(
+  //   `${API_WEATHER}/exist8hDataInfrared`,
+  //   fetcher
+  // );
 
   const [animateInt, setAnimateInt] = useState(1);
   const [links, setLinks] = useState(createLinkNames(API_WEATHER));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
-  const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
-
+  const filled = Math.min(
+    Math.ceil(((selectedTime + 1) / links.length) * 100),
+    100
+  );
   const { data, isLoading } = useGetImagesLink(links);
   const linksAvailable = links
-    .slice(links.findIndex((el) => el.link.includes("sat24")))
+    .slice(links.findIndex((el) => el.link.includes("meteoplaza")))
     .map((el) => el.link);
   const linksFinal = data ? [...data, ...linksAvailable] : linksAvailable;
-
   useEffect(() => {
     let timer;
     if (shouldAnimate) {
@@ -82,24 +83,24 @@ function InfraredCard() {
   const speedCallback = useCallback((e) => {
     setSpeedMultiplier(+e.target.dataset.speed);
   });
-
   return (
     <div className="mb-20 max-w-3xl rounded-md bg-stone-300 xl:mx-auto">
       <div className="flex items-center gap-1 rounded-sm text-lg md:p-2 md:text-xl">
         <span>Static</span>
-        <ToggleAnimation checkCallback={checkCallback} shouldAnimate={shouldAnimate} />
+        <ToggleAnimation
+          checkCallback={checkCallback}
+          shouldAnimate={shouldAnimate}
+        />
         <span>Animate</span>
         {shouldAnimate && (
-          <AnimateOptions
-            animateInt={animateInt}
-            intCallback={intCallback}
-            isLoading8h={isLoading8h}
-            data8h={data8h}
-          />
+          <AnimateOptions animateInt={animateInt} intCallback={intCallback} />
         )}
       </div>
       {shouldAnimate && (
-        <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
+        <SpeedOptions
+          speedMultiplier={speedMultiplier}
+          speedCallback={speedCallback}
+        />
       )}
 
       {isLoading ? (

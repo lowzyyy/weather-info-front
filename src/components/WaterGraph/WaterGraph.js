@@ -11,7 +11,14 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
 //custom imports
 import {
@@ -33,7 +40,9 @@ function WaterGraph() {
     data: levels,
     isLoading: isLoadingLevels,
     error: errorLevels,
-  } = useSWR(`/api/waterLevels`, (...args) => fetch(...args).then((res) => res.json()));
+  } = useSWR(`/api/waterLevels`, (...args) =>
+    fetch(...args).then((res) => res.json())
+  );
   // STATES
   const [selectedInt, setSelectedInt] = useState(days30);
   let selectedData = [];
@@ -44,7 +53,6 @@ function WaterGraph() {
     const interval = +e.target.dataset.interval;
     setSelectedInt(interval);
   });
-
   const data = {
     labels: selectedData.map((el) => {
       const date = el.date.slice(4);
@@ -70,7 +78,9 @@ function WaterGraph() {
   if (errorLevels) return <p>Error loading water level...</p>;
   return (
     <div className="mx-auto max-w-4xl">
-      <h2 className="mb-1 font-semibold md:mb-4 md:text-2xl">Danube level Smederevo</h2>
+      <h2 className="mb-1 font-semibold md:mb-4 md:text-2xl">
+        Danube level Smederevo
+      </h2>
       <IntervalOptions
         levelsLength={levels.length}
         dataCallback={dataCallback}

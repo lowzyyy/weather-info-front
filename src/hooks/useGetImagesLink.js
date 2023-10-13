@@ -18,7 +18,7 @@ const useGetImagesLink = (links) => {
   const urls = links
     .map((el) => el.link)
     .filter((el) => {
-      return !(el.includes("sat24") || el.includes("hidmet"));
+      return !(el.includes("meteoplaza") || el.includes("hidmet"));
     });
   const result = useSWR(urls, arrayFetcher);
   return result;

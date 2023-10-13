@@ -30,7 +30,7 @@ function ImagesList(props) {
         return (
           <img
             key={i}
-            className={`absolute w-full rounded-md ${
+            className={`absolute h-full w-full rounded-md ${
               props.selectedTime === i ? `z-10 opacity-100 ` : "z-0 opacity-0"
             }`}
             src={`${l}`}
