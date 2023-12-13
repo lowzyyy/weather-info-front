@@ -3,7 +3,7 @@ import SevenDaysItem from "./SevenDaysItem";
 
 const SevenDaysSection = (props) => {
   return (
-    <div className="mb-2 flex h-24 gap-3 overflow-x-auto md:justify-between md:px-10">
+    <div className="mb-2 flex h-24 gap-3 overflow-x-auto md:h-28 md:gap-4 md:pb-4 ">
       {props.days.map((day, index) => {
         return (
           <SevenDaysItem
