@@ -3,7 +3,7 @@ import useSWR from "swr";
 const fetcher = (url) =>
   fetch(url, {
     headers: {
-      "ngrok-skip-browser-warning": "true",
+      "Bypass-Tunnel-Reminder": "true",
     },
   })
     .then((res) => res.blob())
