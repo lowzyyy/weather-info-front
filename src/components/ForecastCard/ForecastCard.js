@@ -17,9 +17,8 @@ const ForecastCard = () => {
   const { data, error, isLoading } = useSWR(`${API_WEATHER}/forecast`, fetcher);
   if (isLoading)
     return <p className="max-w-3xl md:mx-auto">LOADING FORECAST....</p>;
-  if (data.length === 0)
-    return <p className="max-w-3xl md:mx-auto">NO FORECAST DATA...</p>;
   if (error) return <p className="max-w-3xl md:mx-auto">ERROR FORECAST...</p>;
+  if (!data) return <p className="max-w-3xl md:mx-auto">NO FORECAST DATA...</p>;
   const sunriseTime = data[0].sunriseTime.split(":")[0];
   const sunsetTime = data[0].sunsetTime.split(":")[0];
   const currentHour = new Date().getHours();

@@ -26,18 +26,23 @@ const start4h = 8;
 const start6h = 0;
 function RadarCard() {
   const API_WEATHER = useContext(UrlContext);
-  const { data: data6h, isLoading: isLoading6h } = useSWR(
-    `${API_WEATHER}/exist6hDataRadar`,
-    fetcher
-  );
+  const {
+    data: data6h,
+    isLoading: isLoading6h,
+    error,
+  } = useSWR(`${API_WEATHER}/exist6hDataRadar`, fetcher);
   const [animateInt, setAnimateInt] = useState(2);
   const [links, setLinks] = useState(createLinkNames(API_WEATHER));
   const [selectedTime, setSelectedTime] = useState(links.length - 1);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [speedMultiplier, setSpeedMultiplier] = useState(1);
-  const filled = Math.min(Math.ceil(((selectedTime + 1) / links.length) * 100), 100);
+  const filled = Math.min(
+    Math.ceil(((selectedTime + 1) / links.length) * 100),
+    100
+  );
 
   const { data, isLoading } = useGetImagesLink(links);
+  console.log(links);
   const linksAvailable = links
     .slice(links.findIndex((el) => el.link.includes("hidmet")))
     .map((el) => el.link);
@@ -83,11 +88,15 @@ function RadarCard() {
   const speedCallback = useCallback((e) => {
     setSpeedMultiplier(+e.target.dataset.speed);
   });
+
   return (
     <div className="mb-6 max-w-3xl rounded-md bg-stone-300 xl:mx-auto">
       <div className="flex items-center gap-1 rounded-sm text-lg md:p-2 md:text-xl ">
         <span>Static</span>
-        <ToggleAnimation shouldAnimate={shouldAnimate} checkCallback={checkCallback} />
+        <ToggleAnimation
+          shouldAnimate={shouldAnimate}
+          checkCallback={checkCallback}
+        />
         <span>Animate</span>
         {shouldAnimate && (
           <AnimateOptions
@@ -99,7 +108,10 @@ function RadarCard() {
         )}
       </div>
       {shouldAnimate && (
-        <SpeedOptions speedMultiplier={speedMultiplier} speedCallback={speedCallback} />
+        <SpeedOptions
+          speedMultiplier={speedMultiplier}
+          speedCallback={speedCallback}
+        />
       )}
       {isLoading ? (
         <div className="flex items-center justify-center">

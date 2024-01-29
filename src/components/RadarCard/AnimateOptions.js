@@ -12,34 +12,37 @@ function AnimateOptions(props) {
   //     `${API_WEATHER}/exist6hData`,
   //     (...args) => fetch(...args).then((res) => res.json())
   //   );
-  const option4h = props.isLoading6h
-    ? null
-    : props.data6h.exists && (
-        <span
-          key={4}
-          className={`rounded-md px-1 hover:cursor-pointer ${
-            props.animateInt === 4 ? "bg-stone-400 text-white" : ""
-          }`}
-          onClick={props.intCallback}
-          data-int={4}
-        >
-          4h
-        </span>
-      );
-  const option6h = props.isLoading6h
-    ? null
-    : props.data6h.exists && (
-        <span
-          key={6}
-          className={`rounded-md px-1 hover:cursor-pointer ${
-            props.animateInt === 6 ? "bg-stone-400 text-white" : ""
-          }`}
-          onClick={props.intCallback}
-          data-int={6}
-        >
-          6h
-        </span>
-      );
+
+  const option4h =
+    props.isLoading6h || !!!props.data6h
+      ? null
+      : props.data6h.exists && (
+          <span
+            key={4}
+            className={`rounded-md px-1 hover:cursor-pointer ${
+              props.animateInt === 4 ? "bg-stone-400 text-white" : ""
+            }`}
+            onClick={props.intCallback}
+            data-int={4}
+          >
+            4h
+          </span>
+        );
+  const option6h =
+    props.isLoading6h || !!!props.data6h
+      ? null
+      : props.data6h.exists && (
+          <span
+            key={6}
+            className={`rounded-md px-1 hover:cursor-pointer ${
+              props.animateInt === 6 ? "bg-stone-400 text-white" : ""
+            }`}
+            onClick={props.intCallback}
+            data-int={6}
+          >
+            6h
+          </span>
+        );
 
   return (
     <span className={`ml-2 flex animate-fadeIn gap-3`}>

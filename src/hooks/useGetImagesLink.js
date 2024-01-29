@@ -1,9 +1,10 @@
+import { headerForSkip } from "@/helpers/constants";
 import useSWR from "swr";
 
 const fetcher = (url) =>
   fetch(url, {
     headers: {
-      "Bypass-Tunnel-Reminder": "true",
+      [headerForSkip]: "true",
     },
   })
     .then((res) => res.blob())
