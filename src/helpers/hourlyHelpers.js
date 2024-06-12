@@ -113,9 +113,16 @@ export const computeIcon = (cond, ...args) => {
     if (condition === "cloudy") return "wi-cloud";
     // thunderstorms
     if (condition === "thundershowers") return "wi-storm-showers";
-    if (condition === "thunderstorms" || condition === "heavy-thunderstorms")
+    if (
+      condition === "thunderstorms" ||
+      condition === "heavy-thunderstorms" ||
+      condition === "strong-storms"
+    )
       return "wi-thunderstorm";
-    if (condition === "scattered-thunderstorms" || condition === "isolated-thunderstorms")
+    if (
+      condition === "scattered-thunderstorms" ||
+      condition === "isolated-thunderstorms"
+    )
       return "wi-day-storm-showers";
 
     // rain
@@ -126,7 +133,8 @@ export const computeIcon = (cond, ...args) => {
       condition === "rain-showers"
     )
       return "wi-showers";
-    if (condition === "light-rain" || condition === "few-showers") return "wi-sprinkle";
+    if (condition === "light-rain" || condition === "few-showers")
+      return "wi-sprinkle";
     // snow
     if (
       condition === "light-snow" ||
@@ -175,7 +183,8 @@ export const computeIcon = (cond, ...args) => {
     if (condition === "rain thunder") return "wi-thunderstorm";
     // ##### AM-PM cases
     // clouds sun
-    if (condition === "clouds sun" || condition === "sun clouds") return "wi-day-cloudy";
+    if (condition === "clouds sun" || condition === "sun clouds")
+      return "wi-day-cloudy";
   }
 
   if (numOfConditions === 3) {
