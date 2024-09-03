@@ -28,33 +28,22 @@ export const infraredSize = {
 };
 
 export const getApiUrl = async () => {
-  const ngrokRes = await fetch("https://api.ngrok.com/tunnels", {
-    headers: {
-      Authorization: `Bearer ${process.env.ngrok_api_key}`,
-      "Ngrok-Version": "2",
-    },
-  });
-  if (!ngrokRes.ok) console.log(`ERROR NGROK API: ${ngrokRes.status}`);
+  if (process.env.USE_NGROK === "true") {
+    const ngrokRes = await fetch("https://api.ngrok.com/tunnels", {
+      headers: {
+        Authorization: `Bearer ${process.env.ngrok_api_key}`,
+        "Ngrok-Version": "2",
+      },
+    });
+    if (!ngrokRes.ok) console.log(`ERROR NGROK API: ${ngrokRes.status}`);
 
-  const { tunnels } = await ngrokRes.json();
+    const { tunnels } = await ngrokRes.json();
 
-  const url = tunnels.filter((t) => t.metadata === "sd-weather")[0].public_url;
-  console.log(url);
-  return {
-    props: { url },
-  };
+    const url = tunnels.filter((t) => t.metadata === "sd-weather")[0]
+      .public_url;
+    console.log(url);
+    return {
+      props: { url },
+    };
+  } else return { props: { url: process.env.BACKEND_API } };
 };
-
-// export const getApiUrl = async () => {
-//   const apiRes = await fetch(`${TUNNEL_MANAGER_API}/getApi?term=sd-weather`, {
-//     headers: {
-//       Authorization: `Bearer ${process.env.TUNNEL_MANAGER_KEY}`,
-//     },
-//   });
-//   if (!apiRes.ok) console.log(`ERROR TUNNEL API: ${apiRes.status}`);
-
-//   const { data } = await apiRes.json();
-//   return {
-//     props: { url: (data && data.url) ?? null },
-//   };
-// };
