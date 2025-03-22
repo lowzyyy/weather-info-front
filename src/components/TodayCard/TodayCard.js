@@ -13,7 +13,9 @@ const TodayCard = () => {
 
   const [showAirPolution, setShowAirPollution] = useState(false);
   useEffect(() => {
-    setShowAirPollution(localStorage.getItem("showPollution") ?? false);
+    setShowAirPollution(
+      localStorage.getItem("showPollution") === "true" ? true : false
+    );
   }, []);
 
   const {
