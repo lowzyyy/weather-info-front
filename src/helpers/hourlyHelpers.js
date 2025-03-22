@@ -192,3 +192,27 @@ export const computeIcon = (cond, ...args) => {
       return "wi-rain-mix";
   }
 };
+
+export const pollutionColors = [
+  "green-500",
+  "yellow-200",
+  "orange-300",
+  "red-400",
+  "purple-400",
+];
+export const getPollutionColors = (type, value) => {
+  const ranges = {
+    "PM2.5": [0, 15, 35, 55, 110],
+    PM10: [0, 25, 50, 90, 180],
+    NO2: [0, 50, 100, 150, 400],
+    SO2: [0, 50, 100, 350, 500],
+  };
+  for (let i = 0; i < ranges[type].length; i++) {
+    if (i === ranges[type][0].length - 1) {
+      return pollutionColors[i];
+    }
+    if (value > ranges[type][i] && value < ranges[type][i + 1]) {
+      return pollutionColors[i];
+    }
+  }
+};

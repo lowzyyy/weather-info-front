@@ -1,13 +1,22 @@
 import is from "../../styles/weather-icons.min.module.css";
-import { NavigationArrow } from "phosphor-react";
+import { ArrowDown, ArrowUp, NavigationArrow } from "phosphor-react";
 import useSWR from "swr";
 import HourlySection from "./HourlySection";
 // import { API_WEATHER } from "@/helpers/constants";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UrlContext } from "../UrlContext/UrlContext";
 import { fetcher } from "@/helpers/constants";
+import { getPollutionColors, pollutionColors } from "@/helpers/hourlyHelpers";
+
+import colors from "tailwindcss/colors";
+
 const TodayCard = () => {
   const API_WEATHER = useContext(UrlContext);
+
+  const [showAirPolution, setShowAirPollution] = useState(false);
+  useEffect(() => {
+    setShowAirPollution(localStorage.getItem("showPollution") ?? false);
+  }, []);
 
   const {
     data: todayData,
@@ -27,17 +36,18 @@ const TodayCard = () => {
     <section
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.233)), url(${todayData.backgroundImageUrl})`,
+        backgroundSize: "cover",
       }}
-      className={`mb-5 w-full max-w-3xl  rounded-md bg-cover p-2 text-white md:mx-auto md:p-4`}
+      className={`mb-5 w-full max-w-3xl  rounded-md p-2 text-white md:mx-auto md:p-4`}
     >
-      <div className="mb-10 flex items-end justify-between">
+      <div className="mb-10 flex flex-wrap items-end justify-between">
         <span className="text-4xl">
           Now {`${todayData.currentTemperature}`}
         </span>
 
         <span className="px-1 text-2xl">{`${todayData.condition}`}</span>
       </div>
-      <div className="flex-shrink-1 mb-10 flex flex-wrap justify-between [&>*]:mb-2 [&>*]:basis-[45%]">
+      <div className="flex-shrink-1 mb-1 flex flex-wrap justify-between [&>*]:mb-1 [&>*]:basis-[45%]">
         {/* LEFT SECTION */}
         <div className="[&>*]:mb-2 [&>*]:flex  [&>*]:justify-between">
           <div className=" text-lg">
@@ -86,7 +96,73 @@ const TodayCard = () => {
           </div>
         </div>
       </div>
+      {todayData.pollutionData?.length > 0 && (
+        <div className="mb-5 flex flex-col pt-1 text-lg ">
+          <div
+            className="flex cursor-pointer items-center justify-between"
+            onClick={() => {
+              localStorage.setItem("showPollution", !showAirPolution);
+              setShowAirPollution((value) => !value);
+            }}
+          >
+            <span className="flex items-center gap-1">
+              Air pollution
+              <span>
+                {showAirPolution ? (
+                  <ArrowUp className="text-cyan-300" />
+                ) : (
+                  <ArrowDown className="text-cyan-300" />
+                )}
+              </span>
+            </span>
+            <span className="text-base text-gray-200">
+              Updated:{" "}
+              {todayData.pollutionData.find((el) => el.type === "time").value}
+            </span>
+          </div>
 
+          {showAirPolution && (
+            <>
+              <div className="mt-1 flex flex-wrap justify-between">
+                {todayData.pollutionData.map((data) => {
+                  if (data.type === "time") return null;
+                  return (
+                    <div
+                      key={data.type}
+                      className="flex w-[45%] items-center justify-between"
+                    >
+                      <span>{data.type}</span>
+                      <span
+                        className={`text-${getPollutionColors(
+                          data.type,
+                          data.value
+                        )}`}
+                      >
+                        {data.value}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-1 flex h-1">
+                {pollutionColors.map((pg) => {
+                  const colorName = pg.split("-")[0];
+                  const colorIntensity = pg.split("-")[1];
+                  return (
+                    <div
+                      key={pg}
+                      className="w-full"
+                      style={{
+                        backgroundColor: colors[colorName][colorIntensity],
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+      )}
       <HourlySection sunTimes={sunTimes}></HourlySection>
     </section>
   );

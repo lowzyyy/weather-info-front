@@ -39,7 +39,9 @@ const SelectedDay = (props) => {
             <span className="flex items-center gap-2">
               <i
                 title={`${dayInfo.dayPrecipType ?? "-"}`}
-                className={`${is.wi} ${is[`${dayIcon}`]}   text-2xl text-cyan-200`}
+                className={`${is.wi} ${
+                  is[`${dayIcon}`]
+                }   text-2xl text-cyan-200`}
               ></i>
               {` ${dayInfo.dayPrecip ?? "-"}`}
             </span>
@@ -53,7 +55,9 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline ${windDirections[dayInfo.dayWindDirection] ?? "-"}`}
+                className={`inline ${
+                  windDirections[dayInfo.dayWindDirection] ?? "-"
+                }`}
               />
               {`${dayInfo.dayWindSpeed ?? "-"} `}
             </span>
@@ -76,7 +80,9 @@ const SelectedDay = (props) => {
             <span className="flex items-center gap-2">
               <i
                 title={`${dayInfo.nightPrecipType ?? "-"}`}
-                className={`${is.wi} ${is[`${nightIcon}`]}   text-2xl text-cyan-200`}
+                className={`${is.wi} ${
+                  is[`${nightIcon}`]
+                }   text-2xl text-cyan-200`}
               ></i>
               {` ${dayInfo.nightPrecip ?? "-"}`}
             </span>
@@ -90,7 +96,9 @@ const SelectedDay = (props) => {
               <NavigationArrow
                 size={18}
                 weight="regular"
-                className={`inline ${windDirections[dayInfo.nightWindDirection] ?? "-"}`}
+                className={`inline ${
+                  windDirections[dayInfo.nightWindDirection] ?? "-"
+                }`}
               />
               {`${dayInfo.nightWindSpeed ?? "-"} `}
             </span>
