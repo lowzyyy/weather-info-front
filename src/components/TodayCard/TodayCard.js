@@ -8,8 +8,6 @@ import { UrlContext } from "../UrlContext/UrlContext";
 import { fetcher } from "@/helpers/constants";
 import { getPollutionColors, pollutionColors } from "@/helpers/hourlyHelpers";
 
-import colors from "tailwindcss/colors";
-
 const TodayCard = () => {
   const API_WEATHER = useContext(UrlContext);
 
@@ -133,10 +131,9 @@ const TodayCard = () => {
                     >
                       <span>{data.type}</span>
                       <span
-                        className={`text-${getPollutionColors(
-                          data.type,
-                          data.value
-                        )}`}
+                        style={{
+                          color: getPollutionColors(data.type, data.value),
+                        }}
                       >
                         {data.value}
                       </span>
@@ -145,15 +142,13 @@ const TodayCard = () => {
                 })}
               </div>
               <div className="mt-1 flex h-1">
-                {pollutionColors.map((pg) => {
-                  const colorName = pg.split("-")[0];
-                  const colorIntensity = pg.split("-")[1];
+                {pollutionColors.map((pollutionColor) => {
                   return (
                     <div
-                      key={pg}
+                      key={pollutionColor}
                       className="w-full"
                       style={{
-                        backgroundColor: colors[colorName][colorIntensity],
+                        backgroundColor: pollutionColor,
                       }}
                     ></div>
                   );

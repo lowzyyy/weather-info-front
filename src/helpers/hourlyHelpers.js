@@ -1,3 +1,5 @@
+import colors from "tailwindcss/colors";
+
 const defaultWindPosition = 140;
 
 export const windDirections = {
@@ -194,11 +196,11 @@ export const computeIcon = (cond, ...args) => {
 };
 
 export const pollutionColors = [
-  "green-500",
-  "yellow-200",
-  "orange-300",
-  "red-400",
-  "purple-400",
+  colors["green"]["500"],
+  colors["yellow"]["200"],
+  colors["orange"]["300"],
+  colors["red"]["400"],
+  colors["purple"]["400"],
 ];
 export const getPollutionColors = (type, value) => {
   const ranges = {
@@ -208,7 +210,7 @@ export const getPollutionColors = (type, value) => {
     SO2: [0, 50, 100, 350, 500],
   };
   for (let i = 0; i < ranges[type].length; i++) {
-    if (i === ranges[type][0].length - 1) {
+    if (i === ranges[type].length - 1) {
       return pollutionColors[i];
     }
     if (value > ranges[type][i] && value < ranges[type][i + 1]) {
