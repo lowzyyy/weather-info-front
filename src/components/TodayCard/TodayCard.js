@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { UrlContext } from "../UrlContext/UrlContext";
 import { fetcher } from "@/helpers/constants";
 import { getPollutionColors, pollutionColors } from "@/helpers/hourlyHelpers";
+import { Tooltip } from "react-tooltip";
 
 const TodayCard = () => {
   const API_WEATHER = useContext(UrlContext);
@@ -133,12 +134,24 @@ const TodayCard = () => {
                     >
                       <span>{data.type}</span>
                       <span
+                        className="flex min-w-[42px] justify-end"
+                        data-tooltip-id={`${data.type}`}
                         style={{
                           color: getPollutionColors(data.type, data.value),
                         }}
                       >
                         {data.value}
                       </span>
+                      <Tooltip
+                        id={`${data.type}`}
+                        content={getPollutionColors(
+                          data.type,
+                          data.value,
+                          true
+                        )}
+                        place="top"
+                        openOnClick
+                      />
                     </div>
                   );
                 })}

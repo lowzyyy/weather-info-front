@@ -202,7 +202,7 @@ export const pollutionColors = [
   colors["red"]["400"],
   colors["purple"]["400"],
 ];
-export const getPollutionColors = (type, value) => {
+export const getPollutionColors = (type, value, returnJustRange = false) => {
   const ranges = {
     "PM2.5": [0, 15, 35, 55, 110],
     PM10: [0, 25, 50, 90, 180],
@@ -211,9 +211,15 @@ export const getPollutionColors = (type, value) => {
   };
   for (let i = 0; i < ranges[type].length; i++) {
     if (i === ranges[type].length - 1) {
+      if (returnJustRange) {
+        return `> ${ranges[type][i]}`;
+      }
       return pollutionColors[i];
     }
     if (value > ranges[type][i] && value < ranges[type][i + 1]) {
+      if (returnJustRange) {
+        return `${ranges[type][i]} - ${ranges[type][i + 1]}`;
+      }
       return pollutionColors[i];
     }
   }
