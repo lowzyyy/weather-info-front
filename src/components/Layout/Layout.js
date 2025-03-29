@@ -69,11 +69,6 @@ const Layout = (props) => {
                 Water level
               </Link>
             </span>
-            <span className="h-10 p-1 text-center font-semibold">
-              <Link onClick={mobileMenuCallback} href="/logs">
-                Logs
-              </Link>
-            </span>
           </div>
         </div>
       </header>

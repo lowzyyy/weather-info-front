@@ -1,11 +1,8 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
-
 import TodayCard from "../components/TodayCard/TodayCard";
 import ForecastCard from "@/components/ForecastCard/ForecastCard";
 import { UrlContext } from "@/components/UrlContext/UrlContext";
 import { getApiUrl } from "@/helpers/constants";
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ url }) {
   return (
