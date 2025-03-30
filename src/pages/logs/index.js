@@ -4,9 +4,7 @@ import Link from "next/link";
 import useSWR from "swr";
 
 const Logs = ({ url }) => {
-  const { data, error } = useSWR(`${url}/getAvailableLogs`, fetcher);
-  console.log(data, error, url);
-
+  const { data } = useSWR(`${url}/getAvailableLogs`, fetcher);
   return (
     <>
       <Head>

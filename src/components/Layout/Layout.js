@@ -72,7 +72,7 @@ const Layout = (props) => {
           </div>
         </div>
       </header>
-      <main className="mx-auto mt-2 max-w-[95%] sm:max-w-[90%] lg:max-w-[75%] xl:w-[60%]">
+      <main className="relative mx-auto mt-2 max-w-[95%] sm:max-w-[90%] lg:max-w-[75%] xl:w-[60%]">
         {props.children}
       </main>
     </>

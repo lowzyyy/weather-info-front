@@ -17,7 +17,7 @@ const LogPreview = ({ url }) => {
   return (
     <>
       {data && (
-        <div className="absolute top-[64px] bottom-3 flex  w-full flex-col overflow-hidden">
+        <div className="absolute flex h-[calc(100vh-4.5rem)] w-full flex-col overflow-hidden">
           <h3 className="my-2 md:my-4 md:text-2xl">{logId}</h3>
           <div
             className={`flex h-full flex-col overflow-auto border-t-[1px] border-blue-300 ${robotoMono.className}`}
