@@ -19,10 +19,12 @@ const Logs = ({ url }) => {
       {url ? (
         <div className="w-full">
           <h2 className="mb-4 text-xl">Available logs</h2>
-          {data &&
-            data.map((log) => {
-              return <Link href={`logs/${log}`}>{log}</Link>;
-            })}
+          <div className="flex flex-col gap-1">
+            {data &&
+              data.map((log) => {
+                return <Link href={`logs/${log}`}>{log}</Link>;
+              })}
+          </div>
         </div>
       ) : (
         <p>Could not reach the server!</p>

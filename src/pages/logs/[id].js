@@ -25,18 +25,23 @@ const LogPreview = ({ url }) => {
             {data &&
               data.toReversed().map((log, i) => {
                 const time = log.timestamp.split("T")[1];
-                const label = log.label.padEnd(12, " ");
+                const label = log.label.padEnd(13, " ");
+                const spanColor =
+                  log.level === "error" ? "text-red-600" : "text-green-700";
                 const labelLevel = (
                   <div className="hidden sm:inline">
-                    {" "}
-                    {log.level} {label}:
+                    {""}
+                    <span className={`${spanColor} font-bold`}>
+                      {log.level.padEnd(5, " ")}{" "}
+                    </span>
+                    {label}:
                   </div>
                 );
 
                 return (
                   <div key={i}>
                     <pre className="hidden text-base md:block">
-                      {`${time}`} |{labelLevel} {`${log.message}`}
+                      {`${time}`}| {labelLevel} {`${log.message}`}
                     </pre>
                     <div className="text-xs md:hidden">{`${time} | ${log.message}`}</div>
                   </div>
