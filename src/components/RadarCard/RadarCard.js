@@ -42,7 +42,6 @@ function RadarCard() {
   );
 
   const { data, isLoading } = useGetImagesLink(links);
-  console.log(links);
   const linksAvailable = links
     .slice(links.findIndex((el) => el.link.includes("hidmet")))
     .map((el) => el.link);

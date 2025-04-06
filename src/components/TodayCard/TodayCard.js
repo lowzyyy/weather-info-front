@@ -36,8 +36,7 @@ const TodayCard = () => {
   return (
     <section
       style={{
-        background: `linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.233)), url(${todayData.backgroundImageUrl})`,
-        backgroundSize: "cover",
+        background: `linear-gradient(rgba(0, 0, 0, 0.212), rgba(0, 0, 0, 0.233)), url(${todayData.backgroundImageUrl}) center/cover no-repeat`,
       }}
       className={`mb-5 w-full max-w-3xl  rounded-md p-2 text-white md:mx-auto md:p-4`}
     >

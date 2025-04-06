@@ -2,18 +2,25 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["https://s.w-x.co/"],
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "s.w-x.co",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
         hostname: "www.hidmet.gov.rs",
-        port: "",
         pathname: "/data/**",
       },
       {
         protocol: "https",
+        hostname: "lowzyyy.pro",
+        pathname: "api/weather-info/radar/**",
+      },
+      {
+        protocol: "https",
         hostname: "sd-weather.up.railway.app",
-        port: "",
         pathname: "/radar/**",
       },
       {
