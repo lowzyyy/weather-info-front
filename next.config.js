@@ -15,7 +15,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "lowzyyy.pro",
+        hostname: "lowzyyy.space",
         pathname: "api/weather-info/radar/**",
       },
       {
