@@ -5,6 +5,7 @@ import React from "react";
 const SevenDaysItem = (props) => {
   const dayIcon = computeIcon(props.data.iconCondition, true);
   // console.log(props.data.iconCondition);
+  // console.log(dayIcon);
   return (
     <div
       onClick={props.selectDay}
